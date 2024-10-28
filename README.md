@@ -23,7 +23,7 @@ Raw data, raw results.
 ## Installation
 
 ```
-composer require fantismic/yetanothertable
+composer require fantismic/yet-another-table
 ```
 
 You may want to let the user save the table arrange of columns. If so, publish the migrations...

@@ -103,6 +103,34 @@ Here you return an array with function => label form.
 
 This will generate an "Options" button in the view that will display a dropdown with the options you set and they will call the function established as key. 
 
+## Passing data to the table
+
+To pass data to the component, either from a route or from an attribute in the `<livewire>` tag, you only need to declare it as a public property in the table component.
+
+```
+<livewire:mytable color_type="primary">
+```
+
+
+```
+class MyTable extends YATBaseTable
+{
+    public $color_type;
+...
+```
+
+## Using the mount() function
+
+If you need to use the `mount()` function in the table component, be sure to call the parent `mount()` order to avoid errors.
+
+```
+public function mount() {
+    parent::mount();
+
+    mySoNeededMountFunction();
+}
+```
+
 # Contents
 
 ## [Settings](#settings-1)
@@ -130,6 +158,7 @@ This will generate an "Options" button in the view that will display a dropdown 
 
 ### [Misc](#misc-1)
 - [Set column ID](#set-column-id)
+- [Show column toggle button](#show-column-toggle-button)
 
 ## [Columns](#columns-1)
 
@@ -147,6 +176,8 @@ This will generate an "Options" button in the view that will display a dropdown 
 - [DateRange Filter](#daterange-filter)
 
 ## [Options](#options-1)
+
+## [Export](#export-1)
 
 ## Settings
 
@@ -230,7 +261,7 @@ Disabled by default.
 Set hasBulk to true to enable the functionality.
 This will use the 'id' column to identify the row, if there is no 'id' column in your data you must set which column to use with [setColumnID](#set-column-id)
 
-> Bulk functionality can be combined with [Options](#options)
+> Bulk functionality can be combined with [Options](#options-1)
 
 #### Get selected rows
 
@@ -300,6 +331,15 @@ By default 'id' is the assumed column for identifying a row in order to use bulk
 
 ```
 $this->setColumnID('ticket');
+```
+
+#### Show column toggle button
+`showColumnToggle(bool $bool)`
+
+Enabled by default, you can disable this button and removing it from view.
+
+```
+$this->showColumnToggle(false);
 ```
 
 
@@ -491,6 +531,24 @@ public function remove() {
 In this example, when user clicks on 'Delete selected rows' the function 'remove' will be called.
 
 > Make sure you implement this functions in your component in order to avoid errors.
+
+
+## Export
+
+You have three methods in order to handle the data to export:
+
+```
+$this->getAllData() # Will return collection of all data
+
+$this->getAfterFiltersData() # Will return collection of filtered data (global search and custom filters)
+
+$this->getSelectedData() # Will return collection of data by selected rows
+```
+
+If you have [Laravel Excel](https://laravel-excel.com/) the stub comes with three functions added to the Options dropdown in order to export the data by this criterias that will work out of the box.
+
+If you have other ways to expor the data or simply dont want to export at all feel free to delete the functions in the component.
+
 ---
 
 [![Image description](https://i.postimg.cc/SxB7b1T0/fantismic-no-background.png)](https://github.com/fantismic)

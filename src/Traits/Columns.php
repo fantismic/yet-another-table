@@ -11,6 +11,7 @@ trait Columns
     public $column_id = 'id';
     public $custom_column_id = 'id';
     public $columns;
+    public $show_column_toggle = true;
 
     public function setColumns() {
         $this->columns = collect($this->columns());
@@ -18,6 +19,10 @@ trait Columns
         $this->columns = $this->columns->map(function ($item) {
             return (object) get_object_vars($item);
         });
+    }
+
+    public function showColumnToggle(bool $bool) {
+        $this->show_column_toggle = $bool;
     }
 
     public function setColumnID(String $column_id) {

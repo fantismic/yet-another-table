@@ -4,6 +4,7 @@ namespace [namespace];
 
 use Livewire\Attributes\On;
 use Fantismic\YetAnotherTable\YATBaseTable;
+use Fantismic\YetAnotherTable\Exports\GenericExport;
 use Fantismic\YetAnotherTable\Classes\Columns\Column;
 use Fantismic\YetAnotherTable\Classes\Columns\BoolColumn;
 use Fantismic\YetAnotherTable\Classes\Filters\FilterString;
@@ -68,14 +69,31 @@ class [class] extends YATBaseTable
 
     public function options(): array {
         return [
-            'export' => 'Export selected rows',
+            'export_selected' => 'Export selected rows',
+            'export_filtered' => 'Export data with filters',
+            'export_all' => 'Export all data',
             'remove' => 'Delete selected rows',
         ];
     }
 
-    public function export() {
-        $ids = $this->getSelectedRows();
-        // Do what you want with the ids
+    /*
+        If you have Laravel Excel (https://laravel-excel.com/) this exports will work.
+        If you are using other export methods or do not want to export at all simply change/delete them at will.
+    */
+
+    public function export_all() {
+        $allData = $this->getAllData();
+        return \Maatwebsite\Excel\Facades\Excel::download(new GenericExport($allData,$strip_tags = true), $this->tableName.'.xlsx');
+    }
+
+    public function export_filtered() {
+        $filteredData = $this->getAfterFiltersData();
+        return \Maatwebsite\Excel\Facades\Excel::download(new GenericExport($filteredData, $strip_tags = true), $this->tableName.'.xlsx');
+    }
+
+    public function export_selected() {
+        $selected_rows = $this->getSelectedData();
+        return \Maatwebsite\Excel\Facades\Excel::download(new GenericExport($selected_rows, $strip_tags = true), $this->tableName.'.xlsx');
     }
 
     public function remove() {

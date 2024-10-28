@@ -18,8 +18,7 @@ trait Pagination
     }
 
     public function paginateData() {
-        $data = $this->filteredData();
-        $data = $this->applyFilters($data);
+        $data = $this->getAfterFiltersData();
 
         // Apply sorting before pagination
         if ($this->sortColumn) {

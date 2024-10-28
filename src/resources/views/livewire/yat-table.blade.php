@@ -1,11 +1,8 @@
 <section>
     <div class="p-2" x-data="{showFilters: false}">
-        @if($customHeader)
-        {!! $customHeader !!}
-        @endif
-        @if($title)
-        <div class="{{($titleClasses ?? 'text-3xl font-thin text-gray-600 dark:text-gray-300 mb-4')}}">{{$title}}</div>
-        @endif
+        @if($customHeader) {!! $customHeader !!} @endif
+        @if($title) <div class="{{($titleClasses ?? 'text-3xl font-thin text-gray-600 dark:text-gray-300 mb-4')}}">{{$title}}</div> @endif
+        
         <div class="flex justify-between items-center mb-4">
             <!-- Search Input && Filters -->
             <div class="flex w-full space-x-3">
@@ -23,213 +20,19 @@
                     @endif
                 </button>
                 @endif
-                <div class="relative">
-                    <label 
-                        class="shadow rounded-md focus-within:ring-blue-400 dark:focus-within:ring-blue-400 bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 pl-3 pr-3 py-2 " 
-                        for="globalSearch" 
-                    >       
-                        <input 
-                            wire:model.live="search" 
-                            placeholder="{{ ucfirst(__('yat::yat.search')) }}..." 
-                            type="text" 
-                            class="min-w-96 bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 p-0 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 " 
-                            autocomplete="off"
-                            id="globalSearch" 
-                            name="globalSearch"
-                        />             
-                    </label>
-                    <button 
-                        type="button" 
-                        class="absolute inset-y-0 right-0 flex items-center pr-3"
-                        x-show="!!$wire.get('search')" 
-                        @click="$wire.set('search', '');"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
+                @include('YATPackage::livewire.parts.global-search')
             </div>
             
             <div class="flex items-center space-x-2">
-                @if($options)
-                <!-- Options Button -->
-                <div x-data="{ isOpenOptionsToggle: false}" class="relative" @keydown.esc.window="isOpenOptionsToggle = false">
-                    <!-- Toggle Button -->
-                    <button @click="isOpenOptionsToggle = ! isOpenOptionsToggle" class="outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
-                        {{ucfirst(__('yat::yat.options'))}}
-                        <svg aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 totate-0">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-                        </svg>
-                    </button>
-                    <!-- Dropdown Menu -->
-                    <div x-cloak x-show="isOpenOptionsToggle" x-transition @click.outside="isOpenOptionsToggle = false" @keydown.down.prevent="$focus.wrap().next()" @keydown.up.prevent="$focus.wrap().previous()" class="shadow-xl min-w-52 z-30 absolute top-11 right-0 inline-block rounded-md whitespace-nowrap" role="menu">
-                        <ul class="rounded-md text-sm font-medium text-gray-900 bg-white border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        @foreach ($options as $function => $label)
-                            <li class="w-full border-b last:border-b-0 border-gray-200 hover:bg-gray-200 rounded-mc dark:border-gray-600 dark:hover:bg-gray-600">
-                                <div class="flex items-center ps-3 pr-3">
-                                    <div 
-                                        wire:click="{{$function}}" 
-                                        class="cursor-pointer w-full pr-3 py-3 ms-2 text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center" 
-                                        wire:loading.attr="disabled"
-                                        wire:loading.class="opacity-50"
-                                    >
-                                        <span>{!! $label !!}</span>
-
-                                        <!-- Spinner next to the text when loading -->
-                                        <span wire:loading wire:target="{{$function}}" class="ml-2 flex items-center"> 
-                                            <svg class="w-4 h-4 text-gray-900 dark:text-gray-300 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 100 8v4a8 8 0 01-8-8z"></path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach       
-                        </ul>                 
-                    </div>
-                </div>
-                @endif
-
-                <!-- Columns Button -->
-                <div x-data="{ isOpenColumnToggle: false}" class="relative " @keydown.esc.window="isOpenColumnToggle = false">
-                    <!-- Toggle Button -->
-                    <button @click="isOpenColumnToggle = ! isOpenColumnToggle" class="outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
-                        {{ucfirst(__('yat::yat.columns'))}}
-                        <svg aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 totate-0">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-                        </svg>
-                    </button>
-                    <!-- Dropdown Menu -->
-                    <div x-cloak x-show="isOpenColumnToggle" x-transition @click.outside="isOpenColumnToggle = false" @keydown.down.prevent="$focus.wrap().next()" @keydown.up.prevent="$focus.wrap().previous()" class="shadow-xl min-w-52 z-30 absolute top-11 right-0 inline-block rounded-md whitespace-nowrap" role="menu">
-                        <ul class="rounded-md text-sm font-medium text-gray-900 bg-white border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            @if($handle_state)
-                            <li class="w-full border-b border-gray-200 rounded-t-lg rounded-md dark:border-gray-600">
-                                <div class="p-3">
-                                    <button 
-                                        wire:click="saveTableState" 
-                                        type="button" 
-                                        class="w-full outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed text-white bg-emerald-500 dark:bg-emerald-700 hover:text-white hover:bg-emerald-600 dark:hover:bg-emerald-600 focus:text-white focus:ring-offset-2 focus:bg-emerald-600 focus:ring-emerald-600 dark:focus:bg-emerald-600 dark:focus:ring-emerald-600 rounded-md gap-x-1 text-xs px-2.5 py-1.5"
-                                        wire:loading.attr="disabled"
-                                        wire:target="saveTableState"
-                                    >   
-                                        <span wire:loading.remove wire:target="saveTableState">{{ucfirst(__('yat::yat.save_column_election'))}}</span>
-                                        <span wire:loading wire:target="saveTableState" class="ml-2">{{ucfirst(__('yat::yat.saving'))}}...</span>
-                                        <!-- Spinner next to the text when loading -->
-                                        <span wire:loading wire:target="saveTableState" class="flex items-center justify-center">
-                                            <svg class="w-2 h-2 mr-2 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 100 8v4a8 8 0 01-8-8z"></path>
-                                            </svg>
-                                        </span>
-                                    </button>
-                                </div>
-                            </li>
-                            @endif
-                        @foreach ($columns as $key => $column)
-                            @if(!$column->hideFromSelector)
-                                <li class="w-full border-gray-200 hover:bg-gray-200  rounded-mc dark:border-gray-600 dark:hover:bg-gray-700">
-                                    <div class="flex items-center ps-3">
-                                        <input id="{{ $column->key }}" type="checkbox" wire:model.live="columns.{{ $key }}.isVisible" class="cursor-pointer w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="{{ $column->key }}" class="cursor-pointer pr-3  w-full py-2 ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">{{ $column->label }}</label>
-                                    </div>
-                                </li>
-                            @endif
-                        @endforeach       
-                        </ul>                 
-                    </div>
-                </div>
-                <div class="min-w-20 rounded-md dark:text-gray-400 focus-within:ring-blue-400 dark:focus-within:ring-blue-400 shadow bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 pl-3 h-10">
-                    <select wire:model.live="perPage" class="bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 ">
-                        @foreach ($perPageOptions as $option)
-                                <option value="{{ $option }}">{{ $option }}</option>
-                        @endforeach
-                    </select>  
-                </div>
+                @includeWhen($options, 'YATPackage::livewire.parts.options')
+                @includeWhen($show_column_toggle, 'YATPackage::livewire.parts.column-toggle')
+                @include('YATPackage::livewire.parts.select-perpage')
             </div>
         </div>
 
 
         <!-- Filters -->
-        @if($has_filters)
-        <!-- Flatpickr CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-        <!-- Flatpickr JS -->
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-        <div x-show="showFilters" x-transition class="flex space-x-3 mb-3">
-            @foreach ($filters as $key => $filter)
-                @if($filter->type == "string")
-                    <div class="relative">
-                        <label 
-                            class="shadow rounded-md focus-within:ring-blue-400 dark:focus-within:ring-blue-400 bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 pl-3 pr-3 py-2 " 
-                            for="filters-{{$filter->key}}" 
-                        >       
-                            <input 
-                                wire:model.live.debounce.200ms="filters.{{$key}}.input" 
-                                placeholder="{{$filter->label}}" 
-                                type="text" 
-                                class="max-w-48 min-w-48 bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 p-0 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 " 
-                                autocomplete="off"
-                                id="filters-{{$filter->key}}" 
-                                name="filters-{{$filter->key}}"
-                            />             
-                        </label>
-                        <button 
-                            type="button" 
-                            class="absolute inset-y-0 right-0 flex items-center pr-3"
-                            x-show="!!$wire.get('filters.{{$key}}.input')"
-                            @click="$wire.set('filters.{{$key}}.input', '');"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                @endif
-                @if($filter->type == "daterange")
-                    <div class="relative">
-                        <label 
-                            class="shadow rounded-md focus-within:ring-blue-400 dark:focus-within:ring-blue-400 bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 pl-3 pr-3 py-2 " 
-                            for="filters-{{$filter->key}}" 
-                        >       
-                            <input 
-                                wire:model.change="filters.{{$key}}.input" 
-                                placeholder="{{$filter->label}}" 
-                                type="text" 
-                                class="max-w-48 min-w-48 bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 p-0 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 " 
-                                autocomplete="off"
-                                id="filters-{{$filter->key}}" 
-                                name="filters-{{$filter->key}}"
-                            />             
-                        </label>
-                    
-                        <button 
-                            type="button" 
-                            class="absolute inset-y-0 right-0 flex items-center pr-3"
-                            x-show="!!$wire.get('filters.{{$key}}.input')"  
-                            @click="$wire.set('filters.{{$key}}.input', '');" 
-                            style="display: none;" 
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            flatpickr("#filters-{{$filter->key}}", {
-                                mode: "range",
-                                dateFormat: "Y-m-d"
-                            });
-                        });
-                    </script>
-                @endif
-            @endforeach
-        </div>
-        @endif
+        @includeWhen($has_filters, 'YATPackage::livewire.parts.filters')
   
         <!-- Data Table -->
         <div class="overflow-x-auto rounded-lg">

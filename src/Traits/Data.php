@@ -9,6 +9,20 @@ trait Data
 
     public $yatTableData;
 
+    public function getAllData() {
+        return $this->yatTableData;
+    }
+
+    public function getAfterFiltersData() {
+        $data = $this->filteredData();
+        $data = $this->applyFilters($data);
+        return $data;
+    }
+
+    public function getSelectedData() {
+        return $this->getAllData()->whereIn('id', $this->getSelectedRows())->values();
+    }
+
     public function parseData() {
 
         $this->yatTableData = collect();

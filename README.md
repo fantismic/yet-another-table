@@ -6,10 +6,6 @@
 [![Licence](https://img.shields.io/packagist/l/fantismic/yetanothertable)](https://packagist.org/packages/fantismic/yetanothertable)
 
 
-Oh no, yet another laravel livewire table.
-Why? Arrays.
-For real tables, real use, serious needs please use [rappasoft laravel livewire table](https://rappasoft.com/packages/laravel-livewire-tables) or [livewire powergrid](https://livewire-powergrid.com/).
-
 This is yet another laravel livewire table and come as is.
 You can filter, you can sort, you can bulk, toggle columns, the basics. The data input is a collection, not a model, we are not fancy. 
 Raw data, raw results.

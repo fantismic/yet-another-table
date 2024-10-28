@@ -1,4 +1,4 @@
-# Dynamic Settings
+# Yet Another Table
 
 [![Laravel](https://img.shields.io/static/v1?label=laravel&message=%E2%89%A510.0&color=0078BE&logo=laravel&style=flat-square")](https://packagist.org/packages/fantismic/dynamic-settings)
 [![Version](https://img.shields.io/packagist/v/fantismic/dynamic-settings)](https://packagist.org/packages/fantismic/yetanothertable)

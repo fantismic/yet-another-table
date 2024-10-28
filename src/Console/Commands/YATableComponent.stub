@@ -1,0 +1,84 @@
+<?php
+
+namespace [namespace];
+
+use Livewire\Attributes\On;
+use Fantismic\YetAnotherTable\YATBaseTable;
+use Fantismic\YetAnotherTable\Classes\Columns\Column;
+use Fantismic\YetAnotherTable\Classes\Columns\BoolColumn;
+
+class [class] extends YATBaseTable
+{
+
+    public $tableName = '[class]';
+
+    public function settings(): void {
+        $this->setTitle('[title]');
+        $this->hasBulk(true);
+        [state-handler-notice]$this->useStateHandler([stateHandleBool]);
+    }
+
+    public function data() {
+        return collect([
+            ['id' => 1, 'name' => 'Red', 'hex' => '#FF0000', 'isPrimary' => true],
+            ['id' => 2, 'name' => 'Green', 'hex' => '#00FF00', 'isPrimary' => true],
+            ['id' => 3, 'name' => 'Blue', 'hex' => '#0000FF', 'isPrimary' => true],
+            ['id' => 4, 'name' => 'Yellow', 'hex' => '#FFFF00', 'isPrimary' => false],
+            ['id' => 5, 'name' => 'Purple', 'hex' => '#800080', 'isPrimary' => false],
+            ['id' => 6, 'name' => 'Orange', 'hex' => '#FFA500', 'isPrimary' => false],
+            ['id' => 7, 'name' => 'Pink', 'hex' => '#FFC0CB', 'isPrimary' => false],
+            ['id' => 8, 'name' => 'Brown', 'hex' => '#A52A2A', 'isPrimary' => false],
+            ['id' => 9, 'name' => 'Gray', 'hex' => '#808080', 'isPrimary' => false],
+            ['id' => 10, 'name' => 'Black', 'hex' => '#000000', 'isPrimary' => false],
+            ['id' => 11, 'name' => 'White', 'hex' => '#FFFFFF', 'isPrimary' => false],
+            ['id' => 12, 'name' => 'Cyan', 'hex' => '#00FFFF', 'isPrimary' => false],
+            ['id' => 13, 'name' => 'Magenta', 'hex' => '#FF00FF', 'isPrimary' => false],
+            ['id' => 14, 'name' => 'Lime', 'hex' => '#00FF00', 'isPrimary' => false],
+            ['id' => 15, 'name' => 'Teal', 'hex' => '#008080', 'isPrimary' => false],
+        ]);
+    }
+
+    public function columns(): array {
+        return [
+            Column::make('Name','name')
+                ->styling('text-lg font-bold')
+                ->hideFromSelector(true),
+            Column::make('Hex Code','hex'),
+            Column::make('Color')
+                ->customData(function($row, $value){
+                    return '<span style="color:'.$row['hex'].'">██████████████</span>';
+                })
+                ->toHtml(),
+            BoolColumn::make('Primary','isPrimary'),
+        ];
+    }
+
+    public function options(): array {
+        return [
+            'export' => 'Export selected rows',
+            'remove' => 'Delete selected rows',
+        ];
+    }
+
+    public function export() {
+        $ids = $this->selected;
+        // Do what you want with the ids
+    }
+
+    public function remove() {
+        foreach ($this->selected as $id) {
+            $this->removeRowFromTable($id);
+        }
+    }
+
+    [comment-state-handler-open]
+    #[On('tableStateSaved')]
+    public function notifyTableStateSavedStatus($status) {
+        if ($status) {
+            // notification('Success");
+        } else {
+            // notification('Error");
+        }
+    }
+    [comment-state-handler-close]
+}

@@ -25,9 +25,7 @@ trait Data
                 if (isset($customData[$column->key])) {
                     $parsedValue = call_user_func_array($customData[$column->key]['function'], [$row, $row[$column->index] ?? null]);
                 }
-/*                 if (isset($customClasses[$column->key])) {
-                    $parsedValue = '<div class="'.$customClasses[$column->key]['classes'].'">'.$parsedValue.'</div>';
-                } */
+
                 $parsedRow[$column->key] = $parsedValue;
             }
             if ($this->has_bulk && $this->custom_column_id) {
@@ -47,17 +45,6 @@ trait Data
             unset($this->columns[$key]->customData);
         }
         return $customData;
-    }
-
-    public function determineIndexCustomColumnID($firstRow) {
-        if ($this->has_bulk && $this->custom_column_id) {
-            $firstRow = (array) $firstRow;
-            if (!isset($firstRow[$this->custom_column_id])) {
-                throw new Exception("[setColumnID] Data doesnt have a key ".$this->custom_column_id);
-            }
-            return $hasColumnID->first()->index;
-        }
-        return false;
     }
 
 }

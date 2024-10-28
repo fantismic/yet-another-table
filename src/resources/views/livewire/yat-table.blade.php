@@ -259,6 +259,10 @@
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}} ">
                                         {!! $row[$column->key] ?? '' !!}
                                     </td>
+                                    @elseif(property_exists($column, 'isLink') && $column->isLink)
+                                    <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}} ">
+                                        <a href="{{$column->href}}" class="{{$column->tag_classes ?? ''}}">{{ $column->text }}</a>
+                                    </td>
                                     @else
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}}">
                                         {{ $row[$column->key] ?? '' }}

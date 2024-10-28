@@ -39,6 +39,27 @@ trait Columns
         return $this;
     }
 
+    public function text($text): self {
+        if ($this->isLink) {
+            $this->text = $text;
+        }
+        return $this;
+    }
+
+    public function href($href): self {
+        if ($this->isLink) {
+            $this->href = $href;
+        }
+        return $this;
+    }
+
+    public function classes($classes): self {
+        if ($this->isLink) {
+            $this->tag_classes = $classes;
+        }
+        return $this;
+    }
+
     public function customData(Closure $function): self {
         $this->customData = $function;
         #$this->customData[$this->key] = $function;

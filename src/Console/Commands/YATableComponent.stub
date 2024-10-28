@@ -6,6 +6,8 @@ use Livewire\Attributes\On;
 use Fantismic\YetAnotherTable\YATBaseTable;
 use Fantismic\YetAnotherTable\Classes\Columns\Column;
 use Fantismic\YetAnotherTable\Classes\Columns\BoolColumn;
+use Fantismic\YetAnotherTable\Classes\Filters\FilterString;
+use Fantismic\YetAnotherTable\Classes\Columns\LinkColumn;
 
 class [class] extends YATBaseTable
 {
@@ -49,7 +51,18 @@ class [class] extends YATBaseTable
                     return '<span style="color:'.$row['hex'].'">██████████████</span>';
                 })
                 ->toHtml(),
+            LinkColumn::make('Google it','name')
+                ->href(function($row, $value){
+                    return "https://www.google.com/search?q=".$value;
+                })
+                ->text('Search in google'),
             BoolColumn::make('Primary','isPrimary'),
+        ];
+    }
+
+    public function filters(): array {
+        return [
+            FilterString::make('name')
         ];
     }
 
@@ -61,12 +74,12 @@ class [class] extends YATBaseTable
     }
 
     public function export() {
-        $ids = $this->selected;
+        $ids = $this->getSelectedRows();
         // Do what you want with the ids
     }
 
     public function remove() {
-        foreach ($this->selected as $id) {
+        foreach ($this->getSelectedRows() as $id) {
             $this->removeRowFromTable($id);
         }
     }

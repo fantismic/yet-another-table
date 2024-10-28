@@ -7,7 +7,6 @@ use Livewire\WithPagination;
 use Fantismic\YetAnotherTable\Traits\Bulk;
 use Fantismic\YetAnotherTable\Traits\Data;
 use Fantismic\YetAnotherTable\Traits\Sort;
-use Fantismic\YetAnotherTable\Traits\Export;
 use Fantismic\YetAnotherTable\Traits\Search;
 use Fantismic\YetAnotherTable\Traits\Columns;
 use Fantismic\YetAnotherTable\Traits\Filters;

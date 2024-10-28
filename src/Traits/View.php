@@ -6,7 +6,7 @@ trait View
 {
     public $title;
     public $titleClasses;
-    public $customHtmlTitle;
+    public $customHeader;
 
     public function setTitle($title) {
         $this->title = $title;
@@ -16,7 +16,7 @@ trait View
         $this->titleClasses = $classes;
     }
 
-    public function setCustomHtmlForTitle($html) {
-        $this->customHtmlTitle = $html;
+    public function setCustomHeader($html) {
+        $this->customHeader = $html;
     }
 }

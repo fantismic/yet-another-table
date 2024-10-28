@@ -1,11 +1,10 @@
 <section>
     <div class="p-2" x-data="{showFilters: false}">
-        @if($customHtmlTitle)
-        {!! $customHtmlTitle !!}
-        @else
-            @if($title)
-            <div class="{{($titleClasses ?? 'text-3xl font-thin text-gray-600 dark:text-gray-300 mb-4')}}">{{$title}}</div>
-            @endif
+        @if($customHeader)
+        {!! $customHeader !!}
+        @endif
+        @if($title)
+        <div class="{{($titleClasses ?? 'text-3xl font-thin text-gray-600 dark:text-gray-300 mb-4')}}">{{$title}}</div>
         @endif
         <div class="flex justify-between items-center mb-4">
             <!-- Search Input && Filters -->
@@ -47,7 +46,7 @@
             </div>
             
             <div class="flex items-center space-x-2">
-
+                @if($options)
                 <!-- Options Button -->
                 <div x-data="{ isOpenOptionsToggle: false}" class="relative" @keydown.esc.window="isOpenOptionsToggle = false">
                     <!-- Toggle Button -->
@@ -85,6 +84,7 @@
                         </ul>                 
                     </div>
                 </div>
+                @endif
 
                 <!-- Columns Button -->
                 <div x-data="{ isOpenColumnToggle: false}" class="relative " @keydown.esc.window="isOpenColumnToggle = false">
@@ -134,12 +134,13 @@
                         </ul>                 
                     </div>
                 </div>
-            
-                <select wire:model.live="perPage" class="py-2 px-3 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-gray-500 focus:ring-gray-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-secondary-700 dark:border-secondary-700 dark:text-secondary-400 dark:placeholder-secondary-500 dark:focus:ring-secondary-600">
-                    @foreach ($perPageOptions as $option)
-                        <option>{{$option}}</option>
-                    @endforeach
-                </select>  
+                <div class="relative">
+                    <select wire:model.live="perPage" class="min-w-20 w-full border-gray-200 rounded-lg text-sm focus:border-gray-500 focus:ring-gray-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-secondary-700 dark:border-secondary-700 dark:text-secondary-400 dark:placeholder-secondary-500 dark:focus:ring-secondary-600">
+                        @foreach ($perPageOptions as $option)
+                                <option value="{{ $option }}">{{ $option }}</option>
+                        @endforeach
+                    </select>  
+                </div>
             </div>
         </div>
 
@@ -179,7 +180,7 @@
                     <div class="relative">
                         <input 
                             type="text" 
-                            id="{{$filter->key}}" 
+                            id="filters-{{$filter->key}}" 
                             class="min-w-56 max-w-56 py-2 pr-8 pl-3 block w-full border-gray-200 rounded-lg text-sm focus:border-gray-600 focus:ring-gray-400 disabled:opacity-50 disabled:pointer-events-none dark:bg-secondary-700 dark:border-secondary-700 dark:text-secondary-300 dark:placeholder-secondary-500 dark:focus:ring-secondary-600" 
                             placeholder="{{$filter->label}}"
                             wire:model.change="filters.{{$key}}.input"
@@ -200,7 +201,7 @@
                     </div>
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
-                            flatpickr("#{{$filter->key}}", {
+                            flatpickr("#filters-{{$filter->key}}", {
                                 mode: "range",
                                 dateFormat: "Y-m-d"
                             });
@@ -261,7 +262,7 @@
                                     </td>
                                     @elseif(property_exists($column, 'isLink') && $column->isLink)
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}} ">
-                                        <a href="{{$column->href}}" class="{{$column->tag_classes ?? ''}}">{{ $column->text }}</a>
+                                        <a href="{{$column->parsed_href}}" class="{{$column->tag_classes ?? ''}}">{{ $column->text }}</a>
                                     </td>
                                     @else
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}}">

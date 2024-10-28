@@ -46,9 +46,9 @@ trait Columns
         return $this;
     }
 
-    public function href($href): self {
+    public function href(Closure $function): self {
         if ($this->isLink) {
-            $this->href = $href;
+            $this->href = $function;
         }
         return $this;
     }
@@ -62,17 +62,24 @@ trait Columns
 
     public function customData(Closure $function): self {
         $this->customData = $function;
-        #$this->customData[$this->key] = $function;
         return $this;
     }
 
     public function hideWhen(Bool $bool): self {
         $this->isHidden = $bool;
+        if ($bool) {
+            $this->hideFromSelector = true;
+        }
         return $this;
     }
 
     public function hideFromSelector(Bool $bool): self {
         $this->hideFromSelector = $bool;
+        return $this;
+    }
+
+    public function isVisible(Bool $bool): self {
+        $this->isVisible = $bool;
         return $this;
     }
 

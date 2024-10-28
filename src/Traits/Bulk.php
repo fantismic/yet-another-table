@@ -12,10 +12,6 @@ trait Bulk
         $this->has_bulk = $bool;
     }
 
-    public function bulkDelete() {
-        dd($this->selected);
-    }
-
     public function updatedSelectAll($value)
     {
         // Get the filtered data based on search
@@ -34,6 +30,10 @@ trait Bulk
         } else {
             $this->selected[] = $id;
         }
+    }
+
+    public function getSelectedRows() {
+        return $this->selected;
     }
 
 }

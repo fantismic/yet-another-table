@@ -2,6 +2,7 @@
 
 namespace Fantismic\YetAnotherTable\Traits;
 
+use Exception;
 use Carbon\Carbon;
 
 trait Filters
@@ -12,31 +13,34 @@ trait Filters
     public $show_filters = false;
 
     public function setFilters() {
-        try {
-            $this->filters = collect($this->filters());
-            $this->filters = $this->filters->map(function ($item) {
-                return (object) get_object_vars($item);
-            });
+        $this->filters = collect($this->filters());
+        $this->filters = $this->filters->map(function ($item) {
+            return (object) get_object_vars($item);
+        });
 
-            foreach ($this->filters as $filter) {
-                if ($filter->column) {
-                    $filter->key = $filter->column;
-                } else {
-                    $filter->key = $this->getColumnKey($filter->label);
-                }
+        foreach ($this->filters as $filter) {
+            if ($filter->column) {
+                $filter->key = $filter->column;
+            } else {
+                $filter->key = $this->getColumnKey($filter->label);
             }
+        }
+        
+        if (!$this->filters->isEmpty()) {
             
-            if (!$this->filters->isEmpty()) {
-                $this->has_filters = true;
-            }
-
-        } catch (\Throwable $th) {
-            $this->has_filters = false;
+            $this->has_filters = true;
         }
     }
 
     public function getColumnKey($filter_label) {
-        return $this->columns->where('label',$filter_label)->first()->key;
+        try {
+            return $this->columns->filter(function ($column) use ($filter_label) {
+                return strtolower($column->label) === strtolower($filter_label);
+            })->first()->key;
+        } catch (\Throwable $th) {
+            throw new Exception("No column with label ".$filter_label." to associate with filter.");
+        }
+
     }
 
     public function updatedFilters($key,$value) {

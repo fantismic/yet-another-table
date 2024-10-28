@@ -10,7 +10,7 @@
             <!-- Search Input && Filters -->
             <div class="flex w-full space-x-3">
                 @if($has_filters)
-                <button @click="showFilters = ! showFilters" class="border focus:border-2 dark:focus:border border-gray-200 dark:border-secondary-700 text-gray-600 dark:text-gray-400 outline-none inline-flex justify-center items-center group hover:shadow-sm dark:bg-secondary-700 hover:text-gray-700  dark:hover:bg-secondary-600 focus:text-gray-700 focus:border-gray-500 focus:ring-gray-500 dark:focus:bg-secondary-600 dark:focus:ring-secondary-600 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
+                <button @click="showFilters = ! showFilters" class="outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
                     {{ucfirst(__('yat::yat.filters'))}}
                     @if(!$show_filters)
                         <svg aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 totate-0">
@@ -24,14 +24,20 @@
                 </button>
                 @endif
                 <div class="relative">
-                    <input 
-                        wire:model.live="search" 
-                        placeholder="{{ ucfirst(__('yat::yat.search')) }}..." 
-                        type="text" 
-                        class="min-w-96 py-2 pr-10 pl-3 block w-full border-gray-200 rounded-lg text-sm focus:border-gray-600 focus:ring-gray-400 disabled:opacity-50 disabled:pointer-events-none dark:bg-secondary-700 dark:border-secondary-700 dark:text-secondary-300 dark:placeholder-secondary-500 dark:focus:ring-secondary-600" 
-                        autocomplete="off"
-                    />
-                
+                    <label 
+                        class="shadow rounded-md focus-within:ring-blue-400 dark:focus-within:ring-blue-400 bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 pl-3 pr-3 py-2 " 
+                        for="globalSearch" 
+                    >       
+                        <input 
+                            wire:model.live="search" 
+                            placeholder="{{ ucfirst(__('yat::yat.search')) }}..." 
+                            type="text" 
+                            class="min-w-96 bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 p-0 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 " 
+                            autocomplete="off"
+                            id="globalSearch" 
+                            name="globalSearch"
+                        />             
+                    </label>
                     <button 
                         type="button" 
                         class="absolute inset-y-0 right-0 flex items-center pr-3"
@@ -50,7 +56,7 @@
                 <!-- Options Button -->
                 <div x-data="{ isOpenOptionsToggle: false}" class="relative" @keydown.esc.window="isOpenOptionsToggle = false">
                     <!-- Toggle Button -->
-                    <button @click="isOpenOptionsToggle = ! isOpenOptionsToggle" class="border focus:border-2 dark:focus:border border-gray-200 dark:border-secondary-700 text-gray-600 dark:text-gray-400 outline-none inline-flex justify-center items-center group hover:shadow-sm dark:bg-secondary-700 hover:text-gray-700  dark:hover:bg-secondary-600 focus:text-gray-700 focus:border-gray-500 focus:ring-gray-500 dark:focus:bg-secondary-600 dark:focus:ring-secondary-600 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
+                    <button @click="isOpenOptionsToggle = ! isOpenOptionsToggle" class="outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
                         {{ucfirst(__('yat::yat.options'))}}
                         <svg aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 totate-0">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
@@ -89,7 +95,7 @@
                 <!-- Columns Button -->
                 <div x-data="{ isOpenColumnToggle: false}" class="relative " @keydown.esc.window="isOpenColumnToggle = false">
                     <!-- Toggle Button -->
-                    <button @click="isOpenColumnToggle = ! isOpenColumnToggle" class="border focus:border-2 dark:focus:border border-gray-200 dark:border-secondary-700 text-gray-600 dark:text-gray-400 outline-none inline-flex justify-center items-center group hover:shadow-sm dark:bg-secondary-700 hover:text-gray-700  dark:hover:bg-secondary-600 focus:text-gray-700 focus:border-gray-500 focus:ring-gray-500 dark:focus:bg-secondary-600 dark:focus:ring-secondary-600 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
+                    <button @click="isOpenColumnToggle = ! isOpenColumnToggle" class="outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
                         {{ucfirst(__('yat::yat.columns'))}}
                         <svg aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 totate-0">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
@@ -134,8 +140,8 @@
                         </ul>                 
                     </div>
                 </div>
-                <div class="relative">
-                    <select wire:model.live="perPage" class="min-w-20 w-full border-gray-200 rounded-lg text-sm focus:border-gray-500 focus:ring-gray-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-secondary-700 dark:border-secondary-700 dark:text-secondary-400 dark:placeholder-secondary-500 dark:focus:ring-secondary-600">
+                <div class="min-w-20 rounded-md dark:text-gray-400 focus-within:ring-blue-400 dark:focus-within:ring-blue-400 shadow bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 pl-3 h-10">
+                    <select wire:model.live="perPage" class="bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 ">
                         @foreach ($perPageOptions as $option)
                                 <option value="{{ $option }}">{{ $option }}</option>
                         @endforeach
@@ -157,13 +163,20 @@
             @foreach ($filters as $key => $filter)
                 @if($filter->type == "string")
                     <div class="relative">
-                        <input 
-                            wire:model.live.debounce.200ms="filters.{{$key}}.input" 
-                            placeholder="{{$filter->label}}" 
-                            class="max-w-48 min-w-48 py-2 pr-10 pl-3 block w-full border-gray-200 rounded-lg text-sm focus:border-gray-600 focus:ring-gray-400 disabled:opacity-50 disabled:pointer-events-none dark:bg-secondary-700 dark:border-secondary-700 dark:text-secondary-300 dark:placeholder-secondary-500 dark:focus:ring-secondary-600" 
-                            autocomplete="off"
-                        />
-                    
+                        <label 
+                            class="shadow rounded-md focus-within:ring-blue-400 dark:focus-within:ring-blue-400 bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 pl-3 pr-3 py-2 " 
+                            for="filters-{{$filter->key}}" 
+                        >       
+                            <input 
+                                wire:model.live.debounce.200ms="filters.{{$key}}.input" 
+                                placeholder="{{$filter->label}}" 
+                                type="text" 
+                                class="max-w-48 min-w-48 bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 p-0 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 " 
+                                autocomplete="off"
+                                id="filters-{{$filter->key}}" 
+                                name="filters-{{$filter->key}}"
+                            />             
+                        </label>
                         <button 
                             type="button" 
                             class="absolute inset-y-0 right-0 flex items-center pr-3"
@@ -178,14 +191,20 @@
                 @endif
                 @if($filter->type == "daterange")
                     <div class="relative">
-                        <input 
-                            type="text" 
-                            id="filters-{{$filter->key}}" 
-                            class="min-w-56 max-w-56 py-2 pr-8 pl-3 block w-full border-gray-200 rounded-lg text-sm focus:border-gray-600 focus:ring-gray-400 disabled:opacity-50 disabled:pointer-events-none dark:bg-secondary-700 dark:border-secondary-700 dark:text-secondary-300 dark:placeholder-secondary-500 dark:focus:ring-secondary-600" 
-                            placeholder="{{$filter->label}}"
-                            wire:model.change="filters.{{$key}}.input"
-                            autocomplete="off"
-                        />
+                        <label 
+                            class="shadow rounded-md focus-within:ring-blue-400 dark:focus-within:ring-blue-400 bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 pl-3 pr-3 py-2 " 
+                            for="filters-{{$filter->key}}" 
+                        >       
+                            <input 
+                                wire:model.change="filters.{{$key}}.input" 
+                                placeholder="{{$filter->label}}" 
+                                type="text" 
+                                class="max-w-48 min-w-48 bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 p-0 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 " 
+                                autocomplete="off"
+                                id="filters-{{$filter->key}}" 
+                                name="filters-{{$filter->key}}"
+                            />             
+                        </label>
                     
                         <button 
                             type="button" 
@@ -243,7 +262,7 @@
                     </tr>
                 </thead>
                 <tbody class="block md:table-row-group">
-                    @forelse ($rows as $row)
+                    @forelse ($rows as $key => $row)
                         <tr class="hover:bg-gray-100 dark:hover:bg-gray-600 border-b md:border-none transition-colors odd:bg-white even:bg-gray-50 dark:odd:bg-gray-700 dark:even:bg-gray-800">
                             @if ($has_bulk)
                                 <td class="px-5">
@@ -262,7 +281,7 @@
                                     </td>
                                     @elseif(property_exists($column, 'isLink') && $column->isLink)
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}} ">
-                                        <a href="{{$column->parsed_href}}" class="{{$column->tag_classes ?? ''}}">{{ $column->text }}</a>
+                                        <a href="{{$column->parsed_href[$key]}}" class="{{$column->tag_classes ?? ''}}">{{ $column->text }}</a>
                                     </td>
                                     @else
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}}">

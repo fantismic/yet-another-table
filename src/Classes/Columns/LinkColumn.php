@@ -14,6 +14,7 @@ class LinkColumn extends Column
     public $href;
     public $text;
     public $tag_styles;
+    public $parsed_href = [];
 
     public function __construct(string $label, ?string $key = null) {
         parent::__construct($label, $key);

@@ -18,7 +18,7 @@ trait Data
         $customData = $this->getCustomData();
         $linkColumns = $this->getLinkColumns();
 
-        foreach ($data as $row) {
+        foreach ($data as $key => $row) {
             $parsedRow = [];
             $row = (array) $row;
             foreach ($this->columns as $column) {
@@ -27,7 +27,7 @@ trait Data
                     $parsedValue = call_user_func_array($customData[$column->key]['function'], [$row, $row[$column->index] ?? null]);
                 }
                 if (isset($linkColumns[$column->key])) {
-                    $column->parsed_href = call_user_func_array($linkColumns[$column->key]['function'], [$row, $row[$column->index] ?? null]);
+                    $column->parsed_href[$key] = call_user_func_array($linkColumns[$column->key]['function'], [$row, $row[$column->index] ?? null]);
                 }
                 $parsedRow[$column->key] = $parsedValue;
             }

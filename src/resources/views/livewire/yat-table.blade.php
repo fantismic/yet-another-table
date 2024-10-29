@@ -84,7 +84,7 @@
                                     </td>
                                     @elseif(property_exists($column, 'isLink') && $column->isLink)
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}} ">
-                                        <a href="{{$column->parsed_href[$key]}}" class="{{$column->tag_classes ?? ''}}">{{ $column->text }}</a>
+                                        <a href="{{$column->parsed_href[$key]}}" class="{{$column->tag_classes ?? ''}}">{{ $column->text ?? $row[$column->key] }}</a>
                                     </td>
                                     @else
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}}">

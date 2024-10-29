@@ -13,7 +13,11 @@ trait Filters
     public $show_filters = false;
 
     public function setFilters() {
-        $this->filters = collect($this->filters());
+        try {
+            $this->filters = collect($this->filters());
+        } catch (\Throwable $th) {
+            return;
+        }
         $this->filters = $this->filters->map(function ($item) {
             return (object) get_object_vars($item);
         });

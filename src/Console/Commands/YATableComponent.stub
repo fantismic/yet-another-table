@@ -93,7 +93,9 @@ class [class] extends YATBaseTable
 
     public function export_selected() {
         $selected_rows = $this->getSelectedData();
-        return \Maatwebsite\Excel\Facades\Excel::download(new GenericExport($selected_rows, $strip_tags = true), $this->tableName.'.xlsx');
+        if ($selected_rows) {
+            return \Maatwebsite\Excel\Facades\Excel::download(new GenericExport($selected_rows, $strip_tags = true), $this->tableName.'.xlsx');
+        }
     }
 
     public function remove() {

@@ -18,7 +18,7 @@ class GenericExport implements FromCollection, WithHeadings, WithStyles, WithCol
     protected $data;
     protected $strip_tags;
 
-    public function __construct($data,$strip_tags = false, $sheetName = null)
+    public function __construct($data,$strip_tags = true, $sheetName = null)
     {
         $this->sheetName = $sheetName;
         $this->data = $data;
@@ -40,6 +40,9 @@ class GenericExport implements FromCollection, WithHeadings, WithStyles, WithCol
     public function headings(): array
     {
         $this->headers = $this->data->isNotEmpty() ? array_keys((array)$this->data->first()) : [];
+        foreach ($this->headers as $key => $value) {
+            $this->headers[$key] = ucfirst(str_replace('_',' ',$value));
+        }
         return $this->headers;
     }
 

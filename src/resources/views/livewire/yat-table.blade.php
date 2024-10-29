@@ -9,15 +9,24 @@
                 @if($has_filters)
                 <button @click="showFilters = ! showFilters" class="outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
                     {{ucfirst(__('yat::yat.filters'))}}
-                    @if(!$show_filters)
-                        <svg aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 totate-0">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                    <div>
+                        <svg 
+                            aria-hidden="true" 
+                            fill="none" 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 24 24" 
+                            stroke-width="2" 
+                            stroke="currentColor" 
+                            class="w-4 h-4 transition-transform duration-300" 
+                            :class="!showFilters ? 'rotate-180' : 'rotate-0'"
+                        >
+                            <path 
+                                stroke-linecap="round" 
+                                stroke-linejoin="round" 
+                                d="M19.5 15.75l-7.5-7.5-7.5 7.5"
+                            />
                         </svg>
-                    @else
-                        <svg aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 rotate-0">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 15.75l-7.5-7.5-7.5 7.5"/>
-                        </svg>
-                    @endif
+                    </div>
                 </button>
                 @endif
                 @include('YATPackage::livewire.parts.global-search')

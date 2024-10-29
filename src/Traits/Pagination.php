@@ -23,7 +23,7 @@ trait Pagination
         // Apply sorting before pagination
         if ($this->sortColumn) {
             $data = $data->sortBy(function ($item) {
-                return $item->{$this->sortColumn} ?? $item[$this->sortColumn];
+                return $item[strtolower($this->sortColumn)];
             });
         
             if ($this->sortDirection === 'desc') {

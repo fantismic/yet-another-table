@@ -96,8 +96,8 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ count($columns) }}" class="">
-                                <div class="text-xl p-3 text-gray-700 dark:text-gray-300">No hay resultados para <i>{{$search}}</i></div>
+                            <td colspan="{{ count($columns) }}" class="text-center py-5">
+                                <div class="text-xl p-3 text-gray-700 dark:text-gray-300">{{ucfirst(__('yat::yat.empty_search'))}}</div>
                             </td>
                         </tr>
                     @endforelse

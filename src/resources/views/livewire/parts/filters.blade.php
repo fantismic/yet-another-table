@@ -4,7 +4,7 @@
 <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<div x-show="showFilters" x-transition class="flex space-x-3 mb-3">
+<div x-show="showFilters" x-transition class="flex flex-wrap gap-3 mb-3">
     @foreach ($filters as $key => $filter)
         @if($filter->type == "string")
             <div class="relative">

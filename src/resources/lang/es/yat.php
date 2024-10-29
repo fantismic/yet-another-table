@@ -7,6 +7,7 @@ return [
     'columns' => 'columnas',
     'save_column_election' => 'Guardar vista',
     'saving' => 'guardando',
-    'filters' => 'filtros'
+    'filters' => 'filtros',
+    'empty_search' => 'No hay resultados para su búsqueda'
 
 ];

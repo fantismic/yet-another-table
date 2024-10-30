@@ -24,7 +24,7 @@
                 </label>
                 <button 
                     type="button" 
-                    class="absolute inset-y-0 right-0 flex items-center pr-3"
+                    class="absolute inset-y-0 right-0 flex items-center pr-3 pt-5"
                     x-show="!!$wire.get('filters.{{$key}}.input')"
                     @click="$wire.set('filters.{{$key}}.input', '');"
                 >
@@ -54,7 +54,7 @@
             
                 <button 
                     type="button" 
-                    class="absolute inset-y-0 right-0 flex items-center pr-3"
+                    class="absolute inset-y-0 right-0 flex items-center pr-3 pt-5"
                     x-show="!!$wire.get('filters.{{$key}}.input')"  
                     @click="$wire.set('filters.{{$key}}.input', '');" 
                     style="display: none;" 
@@ -83,13 +83,25 @@
                     id="filters-{{$filter->key}}" 
                     name="filters-{{$filter->key}}"
                     class="bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 ">
-                    <option class="dark:bg-background-dark text-base" value="">Todos</option>
+                    <option class="dark:bg-background-dark text-base" value="">{{ucfirst(__('yat::yat.all'))}}</option>
                     @foreach ($filter->options as $option)
                         <option class="dark:bg-background-dark text-md" value="{{ $option }}">{{ $option }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
+        @endif
+
+        @if($filter->type == "bool")
+        <label class="inline-flex items-center cursor-pointer pt-5">
+            <input 
+                type="checkbox" value="" 
+                class="sr-only peer"
+                wire:model.live="filters.{{$key}}.input" 
+            >
+            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            <span class="ms-3 text-base font-medium text-gray-900 dark:text-gray-300">Toggle me</span>
+          </label>
         @endif
     @endforeach
 </div>

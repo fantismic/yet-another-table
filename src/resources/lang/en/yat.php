@@ -8,6 +8,9 @@ return [
     'save_column_election' => 'Save view',
     'saving' => 'saving',
     'filters' => 'filters',
-    'empty_search' => 'No matching records with your search'
+    'empty_search' => 'No matching records with your search',
+    'all' => 'all',
+    'true' => 'yes',
+    'false' => 'no'
 
 ];

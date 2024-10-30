@@ -28,6 +28,12 @@ trait Filters
             } else {
                 $filter->key = $this->getColumnKey($filter->label);
             }
+
+            if ($filter->type == 'magic-select') {
+                
+                $filter->options = $this->getAllData()->pluck($filter->key)->unique()->values();
+                $filter->type = 'select';
+            }
         }
         
         if (!$this->filters->isEmpty()) {
@@ -56,6 +62,9 @@ trait Filters
         if (in_array($this->filters[$key]->type,array("string","select"))) {
             $this->filters[$key]->input = trim($this->filters[$key]->input);
         }
+        if ($this->filters[$key]->type == "bool") {
+            $this->filters[$key]->input = ($this->filters[$key]->input) ? $this->filters[$key]->compared_with['true'] : $this->filters[$key]->compared_with['false'];
+        }
         if ($this->filters[$key]->type == "daterange") {
             if (empty(trim($value))) {
                 $this->filters[$key]->input = null;
@@ -77,6 +86,11 @@ trait Filters
             foreach ($this->filters as $filter) {
                 if (in_array($filter->type,array("string","select"))) {
                     if ($filter->input && !str_contains(strtolower($item[$filter->key]), strtolower($filter->input))) {
+                        return false;
+                    }
+                }
+                if ($filter->type == "bool") {
+                    if (!is_null($filter->input) && $filter->input != $item[$filter->key]) {
                         return false;
                     }
                 }

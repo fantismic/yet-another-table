@@ -8,6 +8,9 @@ return [
     'save_column_election' => 'Guardar vista',
     'saving' => 'guardando',
     'filters' => 'filtros',
-    'empty_search' => 'No hay resultados para su búsqueda'
+    'empty_search' => 'No hay resultados para su búsqueda',
+    'all' => 'todos',
+    'true' => 'si',
+    'false' => 'no'
 
 ];

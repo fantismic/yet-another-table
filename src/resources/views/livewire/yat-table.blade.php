@@ -44,7 +44,7 @@
         @includeWhen($has_filters, 'YATPackage::livewire.parts.filters')
   
         <!-- Data Table -->
-        <div class="{{ $override_table_classes ? $table_classes : $table_classes. 'overflow-x-auto rounded-lg'}} ">
+        <div class="{{ $override_table_classes ? $table_classes : $table_classes. 'overflow-x-auto rounded-lg'}}" >
             <table class="min-w-full border-collapse block md:table border border-gray-200 dark:border-gray-700">
                 <thead class="hidden md:table-header-group bg-gray-50 dark:bg-gray-800 {{ $sticky_header ? 'sticky -top-[0.125rem]' : '' }}">
                     <tr class="border-b md:border-none bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 uppercase text-sm leading-normal">
@@ -73,9 +73,29 @@
                         @endforeach
                     </tr>
                 </thead>
+
                 <tbody class="block md:table-row-group">
+                    @if($loading_table_spinner)
+                    <tr 
+                        class="hidden d-none bg-red" 
+                        @if($loading_table_spinner) 
+                            wire:loading.long.class.remove="hidden d-none"
+                        @endif
+                        
+                    >
+                        <td colspan="{{ $cols = ($has_bulk) ? count($columns) + 1 : count($columns) }}">
+                            @includeUnless($loading_table_spinner_custom_view, 'YATPackage::livewire.parts.loading-table')
+                            @includeWhen($loading_table_spinner_custom_view, $loading_table_spinner_custom_view)
+                        </td>
+                    </tr>
+                    @endif
                     @forelse ($rows as $key => $row)
-                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-600 border-b md:border-none transition-colors odd:bg-white even:bg-gray-50 dark:odd:bg-gray-700 dark:even:bg-gray-800">
+                        <tr
+                            class="hover:bg-gray-100 dark:hover:bg-gray-600 border-b md:border-none transition-colors odd:bg-white even:bg-gray-50 dark:odd:bg-gray-700 dark:even:bg-gray-800"
+                            @if($loading_table_spinner) 
+                                wire:loading.long.class.add="hidden d-none"
+                            @endif
+                        >
                             @if ($has_bulk)
                                 <td class="px-5">
                                     <input value="{{ $row[$column_id] }}"  type="checkbox" wire:model.live="selected" class="cursor-pointer  text-gray-500 bg-gray-100 border-gray-400 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">

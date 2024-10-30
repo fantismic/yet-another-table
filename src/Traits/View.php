@@ -11,6 +11,8 @@ trait View
     public $table_classes;
     public $override_table_classes = false;
     public $sticky_header = false;
+    public $loading_table_spinner = true;
+    public $loading_table_spinner_custom_view;
 
     public function setTitle($title) {
         $this->title = $title;
@@ -39,5 +41,13 @@ trait View
     
     public function setStickyHeader() {
         $this->sticky_header = true;
+    }
+
+    public function useTableSpinner(bool $bool) {
+        $this->loading_table_spinner = $bool;
+    }
+
+    public function setTableSpinnerView(string $view) {
+        $this->loading_table_spinner_custom_view = $view;
     }
 }

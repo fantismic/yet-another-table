@@ -142,6 +142,7 @@ public function mount() {
 - [Set component classes](#set-component-classes)
 - [Add table classes](#add-table-classes)
 - [Set table classes](#set-table-classes)
+- [Set sticky header](#set-sticky-header)
 
 ### [Sorting](#sorting-1)
 - [Set default sort column](#set-default-sort-column)
@@ -256,6 +257,16 @@ Same as `addTableClasses`, but instead of adding classes to the wrapper you over
 ```
 $this->setTableClasses('max-h-64 md:max-h-80 lg:max-h-[30rem] overflow-y-scroll');
 ```
+
+#### Set sticky header
+`setStickyHeader()`
+
+Disabled by defualt, enable this to stick the table header, usefull when disabled pagination with a scrolling table.
+
+```
+$this->setStickyHeader();
+```
+
 
 ### Sorting
 

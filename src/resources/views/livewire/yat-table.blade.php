@@ -46,7 +46,7 @@
         <!-- Data Table -->
         <div class="{{ $override_table_classes ? $table_classes : $table_classes. 'overflow-x-auto rounded-lg'}} ">
             <table class="min-w-full border-collapse block md:table border border-gray-200 dark:border-gray-700">
-                <thead class="hidden md:table-header-group bg-gray-50 dark:bg-gray-800">
+                <thead class="hidden md:table-header-group bg-gray-50 dark:bg-gray-800 {{ $sticky_header ? 'sticky -top-[0.125rem]' : '' }}">
                     <tr class="border-b md:border-none bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 uppercase text-sm leading-normal">
                         @if ($has_bulk)
                             <th class="text-left px-5">

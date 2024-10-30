@@ -10,6 +10,7 @@ trait View
     public $main_wrapper_classes;
     public $table_classes;
     public $override_table_classes = false;
+    public $sticky_header = false;
 
     public function setTitle($title) {
         $this->title = $title;
@@ -34,5 +35,9 @@ trait View
     public function setTableClasses(string $classes) {
         $this->override_table_classes = true;
         $this->table_classes = $classes;
+    }
+    
+    public function setStickyHeader() {
+        $this->sticky_header = true;
     }
 }

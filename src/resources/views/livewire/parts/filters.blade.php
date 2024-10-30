@@ -8,13 +8,13 @@
     @foreach ($filters as $key => $filter)
         @if($filter->type == "string")
             <div class="relative">
+                <div class="text-sm dark:text-gray-300 text-gray-600">{{ucfirst($filter->label)}}</div>
                 <label 
                     class="shadow rounded-md focus-within:ring-blue-400 dark:focus-within:ring-blue-400 bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 pl-3 pr-3 py-2 " 
                     for="filters-{{$filter->key}}" 
-                >       
+                >
                     <input 
-                        wire:model.live.debounce.200ms="filters.{{$key}}.input" 
-                        placeholder="{{$filter->label}}" 
+                        wire:model.live.debounce.200ms="filters.{{$key}}.input"  
                         type="text" 
                         class="max-w-48 min-w-48 bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 p-0 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 " 
                         autocomplete="off"
@@ -34,15 +34,16 @@
                 </button>
             </div>
         @endif
+
         @if($filter->type == "daterange")
             <div class="relative">
+                <div class="text-sm dark:text-gray-300 text-gray-600">{{ucfirst($filter->label)}}</div>
                 <label 
                     class="shadow rounded-md focus-within:ring-blue-400 dark:focus-within:ring-blue-400 bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 pl-3 pr-3 py-2 " 
                     for="filters-{{$filter->key}}" 
-                >       
+                >   
                     <input 
-                        wire:model.change="filters.{{$key}}.input" 
-                        placeholder="{{$filter->label}}" 
+                        wire:model.change="filters.{{$key}}.input"  
                         type="text" 
                         class="max-w-48 min-w-48 bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 p-0 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 " 
                         autocomplete="off"
@@ -71,6 +72,24 @@
                     });
                 });
             </script>
+        @endif
+
+        @if($filter->type == "select")
+        <div class="relative">
+            <div class="text-sm dark:text-gray-300 text-gray-600">{{ucfirst($filter->label)}}</div>
+            <div class="min-w-[5rem]  rounded-md dark:text-gray-400 focus-within:ring-blue-400 dark:focus-within:ring-blue-400 shadow bg-background-white dark:bg-background-dark relative flex justify-between gap-x-2 items-center transition-all ease-in-out duration-150 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 focus-within:ring-2 outline-0 h-10">
+                <select 
+                    wire:model.change="filters.{{$key}}.input" 
+                    id="filters-{{$filter->key}}" 
+                    name="filters-{{$filter->key}}"
+                    class="bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 ">
+                    <option class="dark:bg-background-dark text-base" value="">Todos</option>
+                    @foreach ($filter->options as $option)
+                        <option class="dark:bg-background-dark text-md" value="{{ $option }}">{{ $option }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         @endif
     @endforeach
 </div>

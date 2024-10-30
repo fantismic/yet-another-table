@@ -53,7 +53,7 @@ trait Filters
         }
         $key = str_replace(array('filters.','.input'),'',$key);
         
-        if ($this->filters[$key]->type == "string") {
+        if (in_array($this->filters[$key]->type,array("string","select"))) {
             $this->filters[$key]->input = trim($this->filters[$key]->input);
         }
         if ($this->filters[$key]->type == "daterange") {
@@ -66,6 +66,7 @@ trait Filters
                 $this->filters[$key]->daterange = ["start"=>Carbon::parse($start),"end"=>Carbon::parse($end)];
             }
         }
+
         
     }
 
@@ -74,7 +75,7 @@ trait Filters
         
         return $data->filter(function ($item) {
             foreach ($this->filters as $filter) {
-                if ($filter->type == "string") {
+                if (in_array($filter->type,array("string","select"))) {
                     if ($filter->input && !str_contains(strtolower($item[$filter->key]), strtolower($filter->input))) {
                         return false;
                     }

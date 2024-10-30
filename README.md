@@ -8,6 +8,7 @@
 
 This is yet another laravel livewire table and come as is.
 You can filter, you can sort, you can bulk, toggle columns, the basics. The data input is a collection/array, we cant handle models.
+
 Consider using other packages like the ones that heavily inspired this one (rappasoft livewire tables/powergrid tables) for better performance and more and better features.
 
 ## Requirements

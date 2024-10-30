@@ -13,6 +13,8 @@ trait View
     public $sticky_header = false;
     public $loading_table_spinner = true;
     public $loading_table_spinner_custom_view;
+    
+    public $modals_view;
 
     public function setTitle($title) {
         $this->title = $title;
@@ -49,5 +51,9 @@ trait View
 
     public function setTableSpinnerView(string $view) {
         $this->loading_table_spinner_custom_view = $view;
+    }
+
+    public function setModalsView(string $view) {
+        $this->modals_view = $view;
     }
 }

@@ -124,7 +124,11 @@
                             @endforeach
                         </tr>
                     @empty
-                        <tr>
+                        <tr
+                            @if($loading_table_spinner) 
+                                wire:loading.long.class.add="hidden d-none"
+                            @endif
+                        >
                             <td colspan="{{ $cols = ($has_bulk) ? count($columns) + 1 : count($columns) }}" class="text-center py-5">
                                 <div class="text-xl p-3 text-gray-700 dark:text-gray-300">{{ucfirst(__('yat::yat.empty_search'))}}</div>
                             </td>
@@ -137,4 +141,6 @@
         <!-- Pagination -->
         @includeWhen($with_pagination, 'YATPackage::livewire.parts.pagination')
     </div>
+
+    @includeWhen($modals_view,$modals_view)
   </section>

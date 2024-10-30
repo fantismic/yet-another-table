@@ -1,6 +1,6 @@
 {
     "name": "fantismic/yet-another-table",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "description": "Oh no, another livewire table. Please, use rappasoft or powergrid, this is for fun or arrays.",
     "license": "MIT",
     "keywords": [

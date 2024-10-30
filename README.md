@@ -7,8 +7,8 @@
 
 
 This is yet another laravel livewire table and come as is.
-You can filter, you can sort, you can bulk, toggle columns, the basics. The data input is a collection, not a model, we are not fancy. 
-Raw data, raw results.
+You can filter, you can sort, you can bulk, toggle columns, the basics. The data input is a collection/array, we cant handle models.
+Consider using other packages like the ones that heavily inspired this one (rappasoft livewire tables/powergrid tables) for better performance and more and better features.
 
 ## Requirements
 
@@ -143,6 +143,9 @@ public function mount() {
 - [Add table classes](#add-table-classes)
 - [Set table classes](#set-table-classes)
 - [Set sticky header](#set-sticky-header)
+- [Table spinner](#table-spinner)
+- [Table spinner view](#table-spinner-view)
+- [Modals View](#modals-view)
 
 ### [Sorting](#sorting-1)
 - [Set default sort column](#set-default-sort-column)
@@ -261,10 +264,37 @@ $this->setTableClasses('max-h-64 md:max-h-80 lg:max-h-[30rem] overflow-y-scroll'
 #### Set sticky header
 `setStickyHeader()`
 
-Disabled by defualt, enable this to stick the table header, usefull when disabled pagination with a scrolling table.
+Disabled by defualt, enable this to stick the table header, useful when disabled pagination with a scrolling table.
 
 ```
 $this->setStickyHeader();
+```
+
+#### Table spinner
+`useTableSpinner(bool $bool)`
+
+Enabled by default, set this to `false` to disable the loading spinner.
+
+```
+$this->useTableSpinner();
+```
+
+#### Table spinner view
+`setTableSpinnerView(string $view)`
+
+If `useTableSpinner` is activated, you can use your own blade to display the spinner/message you want when loading.
+
+```
+$this->setTableSpinnerView('myviews.myspinner');
+```
+
+#### Modals View
+`setModalsView(string $view)`
+
+This adds the passed view at the bottom of the component, useful for modals.
+
+```
+$this->setModalsView('myviews.mymodals');
 ```
 
 

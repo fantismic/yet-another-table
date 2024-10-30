@@ -10,7 +10,11 @@ trait Data
 {
 
     public function getAllData() {
-        return Cache::get(static::class.'\\'.Auth::user()->username);
+        // Define the unique session key
+        $sessionKey = static::class . '\\' . Auth::user()->username;
+    
+        // Retrieve the data from the session
+        return session($sessionKey);
     }
 
     public function getAfterFiltersData() {
@@ -25,7 +29,7 @@ trait Data
 
     public function parseData() {
 
-        Cache::forget(static::class.'\\'.Auth::user()->username);
+        $this->clearData();
 
         $this->userData = collect();
 
@@ -78,9 +82,22 @@ trait Data
     }
 
     public function cacheData() {
-        if (!Cache::has(static::class.'\\'.Auth::user()->username)) {
-            Cache::put(static::class.'\\'.Auth::user()->username, $this->userData, now()->addMinutes(30));
+        // Define a unique key for the session based on the class and username
+        $sessionKey = static::class . '\\' . Auth::user()->username;
+    
+        // Check if the session already has the data
+        if (!session()->has($sessionKey)) {
+            // Store the userData in the session
+            session([$sessionKey => $this->userData]);
         }
+    }
+
+    public function clearData() {
+        // Define the unique session key
+        $sessionKey = static::class . '\\' . Auth::user()->username;
+    
+        // Remove the data from the session
+        session()->forget($sessionKey);
     }
 
 }

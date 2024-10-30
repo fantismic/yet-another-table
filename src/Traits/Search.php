@@ -24,7 +24,7 @@ trait Search
         if (empty($searchTerm)) {
             return $data;
         }
-        dd($data);
+        
         // Apply filtering across all columns
         return $data->filter(function ($item) use ($searchTerm) {
             // Check if the search term exists in any of the item's values

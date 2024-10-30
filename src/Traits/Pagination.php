@@ -24,7 +24,8 @@ trait Pagination
 
     public function paginateData() {
         $data = $this->getAfterFiltersData();
-
+        
+        
         // Apply sorting before pagination
         if ($this->sortColumn) {
             $data = $data->sortBy(function ($item) {
@@ -35,6 +36,7 @@ trait Pagination
                 $data = $data->reverse();
             }
         }
+        
 
         $currentPage = \Illuminate\Pagination\Paginator::resolveCurrentPage();
         

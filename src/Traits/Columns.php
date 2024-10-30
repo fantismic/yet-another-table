@@ -88,7 +88,7 @@ trait Columns
         return $this;
     }
 
-    public function generateTempID() {
+/*     public function generateTempID() {
         if ($this->has_bulk) {
             if (!$this->yatTableData->isEmpty()) {
                 $idColumn = $this->column_id;
@@ -109,6 +109,6 @@ trait Columns
                 }
             }
         }
-    }
+    } */
 }
 

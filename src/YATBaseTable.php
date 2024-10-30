@@ -37,6 +37,8 @@ class YATBaseTable extends Component
         Filters
         ;
 
+    private $userData;
+
     #[On('refresh')]
     public function refresh(): void
     {
@@ -47,6 +49,7 @@ class YATBaseTable extends Component
         $this->setColumns();
         $this->settings();
         $this->parseData();
+        $this->cacheData();
         $this->setOptions();
         $this->setTableState();
         $this->setFilters();

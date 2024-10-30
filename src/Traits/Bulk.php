@@ -14,8 +14,9 @@ trait Bulk
 
     public function updatedSelectAll($value)
     {
+        $data = $this->getAllData();
         // Get the filtered data based on search
-        $filteredData = $this->yatTableData->filter(function ($item) {
+        $filteredData = $data->filter(function ($item) {
             return collect($item)->filter(fn($value) => str_contains(strtolower($value), strtolower($this->search)))->isNotEmpty();
         });
 

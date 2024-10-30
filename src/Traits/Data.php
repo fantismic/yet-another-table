@@ -3,14 +3,14 @@
 namespace Fantismic\YetAnotherTable\Traits;
 
 use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 trait Data
 {
 
-    public $yatTableData;
-
     public function getAllData() {
-        return $this->yatTableData;
+        return Cache::get(static::class.'\\'.Auth::user()->username);
     }
 
     public function getAfterFiltersData() {
@@ -25,7 +25,9 @@ trait Data
 
     public function parseData() {
 
-        $this->yatTableData = collect();
+        Cache::forget(static::class.'\\'.Auth::user()->username);
+
+        $this->userData = collect();
 
         $data = $this->data();
 
@@ -48,7 +50,7 @@ trait Data
             if ($this->has_bulk && $this->custom_column_id) {
                 $parsedRow['id'] = $row[$this->custom_column_id];
             }
-            $this->yatTableData->push($parsedRow);
+            $this->userData->push($parsedRow);
         }
 
     }
@@ -73,6 +75,12 @@ trait Data
             unset($this->columns[$key]->href);
         }
         return $linkColumns;
+    }
+
+    public function cacheData() {
+        if (!Cache::has(static::class.'\\'.Auth::user()->username)) {
+            Cache::put(static::class.'\\'.Auth::user()->username, $this->userData, now()->addMinutes(30));
+        }
     }
 
 }

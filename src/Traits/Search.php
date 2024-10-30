@@ -14,16 +14,19 @@ trait Search
 
     public function filteredData()
     {
+
+        $data = $this->getAllData();
+        
         // Ensure the search term is properly trimmed and lowercased
         $searchTerm = strtolower(trim($this->search));
     
         // If no search term, return the original collection
         if (empty($searchTerm)) {
-            return $this->yatTableData;
+            return $data;
         }
-    
+        dd($data);
         // Apply filtering across all columns
-        return $this->yatTableData->filter(function ($item) use ($searchTerm) {
+        return $data->filter(function ($item) use ($searchTerm) {
             // Check if the search term exists in any of the item's values
             foreach ($item as $value) {
                 if (str_contains(strtolower($value), $searchTerm)) {

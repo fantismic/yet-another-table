@@ -183,6 +183,10 @@ public function mount() {
 
 - [String filter](#string-filter)
 - [DateRange Filter](#daterange-filter)
+- [Select Filter](#select-filter)
+- [Select Magic Filter](#select-magic-filter)
+- [Bool Filter](#bool-filter)
+
 
 ## [Options](#options-1)
 
@@ -590,6 +594,42 @@ This filter uses flatpickr to display a date range select and filter the table b
 
 ```
 FilterDateRange::make('created_at') # This will search in column with label 'name'
+```
+
+### Select Filter
+`FilterSelect::make(string $label, array $options)`
+
+This filter displays a `select` with the options given.
+
+```
+FilterSelect::make('type',["primary","secondary"])
+```
+
+### Select Magic Filter
+`FilterSelectMagic::make(string $label, array $options)`
+
+Same as select filter, but with magic.
+This filter with get all values from the column given, make the unique and display them.
+
+```
+[
+    ["id"=>1, "color"=>"red", "type"=>"Primary"],
+    ["id"=>2, "color"=>"violet", "type"=>"Secondary"],
+    ["id"=>2, "color"=>"green", "type"=>"Primary"],
+]
+
+FilterSelectMagic::make('type')
+# Will display Primary and Secondary in the <select>
+```
+
+### Bool filter
+`FilterBool::make(string $label, ?array $compared_with = null, ?string $index = null)`
+
+This filter displays a `toggle` to make boolean comparisons.
+By default it will compare `true` and `false`, but you can pass an array `["true" => "My True value", "false" => "My false value"]` and it will compare to that.
+
+```
+FilterBool::make('isprimary')
 ```
 
 ## Options

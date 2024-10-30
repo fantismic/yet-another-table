@@ -1,5 +1,5 @@
 <section>
-    <div x-data="{showFilters: false}">
+    <div classes="{{$main_wrapper_classes}}" x-data="{showFilters: false}">
         @if($customHeader) {!! $customHeader !!} @endif
         @if($title) <div class="{{($titleClasses ?? 'text-3xl font-thin text-gray-600 dark:text-gray-300 mb-4')}}">{{$title}}</div> @endif
         
@@ -35,7 +35,7 @@
             <div class="flex items-center space-x-2">
                 @includeWhen($options, 'YATPackage::livewire.parts.options')
                 @includeWhen($show_column_toggle, 'YATPackage::livewire.parts.column-toggle')
-                @include('YATPackage::livewire.parts.select-perpage')
+                @includeWhen($with_pagination, 'YATPackage::livewire.parts.select-perpage')
             </div>
         </div>
 
@@ -44,7 +44,7 @@
         @includeWhen($has_filters, 'YATPackage::livewire.parts.filters')
   
         <!-- Data Table -->
-        <div class="overflow-x-auto rounded-lg">
+        <div class="{{ $override_table_classes ? $table_classes : $table_classes. 'overflow-x-auto rounded-lg'}} ">
             <table class="min-w-full border-collapse block md:table border border-gray-200 dark:border-gray-700">
                 <thead class="hidden md:table-header-group bg-gray-50 dark:bg-gray-800">
                     <tr class="border-b md:border-none bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 uppercase text-sm leading-normal">
@@ -105,7 +105,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ count($columns) }}" class="text-center py-5">
+                            <td colspan="{{ $cols = ($has_bulk) ? count($columns) + 1 : count($columns) }}" class="text-center py-5">
                                 <div class="text-xl p-3 text-gray-700 dark:text-gray-300">{{ucfirst(__('yat::yat.empty_search'))}}</div>
                             </td>
                         </tr>
@@ -115,8 +115,6 @@
         </div>
   
         <!-- Pagination -->
-        <div class="mt-4">
-            {{ $rows->links() }}
-        </div>
+        @includeWhen($with_pagination, 'YATPackage::livewire.parts.pagination')
     </div>
   </section>

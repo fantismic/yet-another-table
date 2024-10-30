@@ -139,6 +139,9 @@ public function mount() {
 - [Set table title](#set-table-title)
 - [Override title classes](#override-title-classes)
 - [Set a custom header](#set-a-custom-header)
+- [Set component classes](#set-component-classes)
+- [Add table classes](#add-table-classes)
+- [Set table classes](#set-table-classes)
 
 ### [Sorting](#sorting-1)
 - [Set default sort column](#set-default-sort-column)
@@ -153,6 +156,7 @@ public function mount() {
 - [Enable state handler](#enable-state-handler)
 
 ### [Pagination](#pagination-1)
+- [Use pagination](#use-pagination)
 - [Set default per page rows value](#set-default-per-page-rows-value)
 - [Set options for per page rows](#set-options-for-per-page-rows)
 
@@ -218,6 +222,39 @@ $this->setCustomHeader('
         <div><button href="/">Go back</button></div>
     </div>
 ');
+```
+
+#### Set component classes
+`setComponentClasses(string $classes)`
+
+Here you can set classes for the component wrapper, this includes the buttons, the pagination, the title, etc. Its the whole view.
+
+> Tailwind classes only
+
+```
+$this->setComponentClasses('bg-black p-4');
+```
+
+#### Add table classes
+`addTableClasses(string $classes)`
+
+Here you can add classes to the table wrapper. Only the table, buttons, pagination, title, etc are outside this wrapper.
+
+> Tailwind classes only
+
+```
+$this->addTableClasses('text-xl');
+```
+
+#### Set table classes
+`setTableClasses(string $classes)`
+
+Same as `addTableClasses`, but instead of adding classes to the wrapper you override the defaults leaveing only what you pass to the function.
+
+> Tailwind classes only
+
+```
+$this->setTableClasses('max-h-64 md:max-h-80 lg:max-h-[30rem] overflow-y-scroll');
 ```
 
 ### Sorting
@@ -304,6 +341,11 @@ $this->useStateHandler(true);
 
 ### Pagination
 
+#### Use pagination
+`usePagination(bool $bool)`
+
+Enabled by default, set this to `false` to disable pagination.
+
 #### Set default per page rows value
 `setPerPageDefault(int $number)`
 
@@ -336,7 +378,7 @@ $this->setColumnID('ticket');
 #### Show column toggle button
 `showColumnToggle(bool $bool)`
 
-Enabled by default, you can disable this button and removing it from view.
+Enabled by default, you can disable this button and remove it from view.
 
 ```
 $this->showColumnToggle(false);

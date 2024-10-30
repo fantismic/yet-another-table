@@ -54,8 +54,12 @@ class YATBaseTable extends Component
 
     public function render()
     {
-      
-        $paginatedData = $this->paginateData();
+        
+        if ($this->with_pagination) {
+            $paginatedData = $this->paginateData();
+        } else {
+            $paginatedData=$this->getAfterFiltersData();
+        }
         
         return view('YATPackage::livewire.yat-table', [
             'rows' => $paginatedData

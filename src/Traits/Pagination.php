@@ -8,6 +8,11 @@ trait Pagination
     public $paginationTheme = 'tailwind'; // Use Tailwind for pagination
     public $perPage = "10";
     public $perPageOptions = ["10", "15", "25", "50"];
+    public $with_pagination = true;
+
+    public function usePagination(bool $bool) {
+        $this->with_pagination = $bool;
+    }
 
     public function setPerPageDefault(Int $number) {
         $this->perPage = $number;

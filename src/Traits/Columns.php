@@ -29,6 +29,12 @@ trait Columns
         $this->custom_column_id = $column_id;
     }
 
+    public function view($view): self {
+        $this->hasView = true;
+        $this->view = $view;
+        return $this;
+    }
+
     public function styling(String $classes): self {
         $this->classes = "!".str_replace(' ',' !',trim($classes));
         return $this;

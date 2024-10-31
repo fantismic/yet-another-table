@@ -103,6 +103,11 @@
                             @endif
                             @foreach ($columns as $column)
                               @if (!$column->isHidden && $column->isVisible)
+                                    @if(property_exists($column, 'hasView') && $column->hasView)
+                                    <td>
+                                        @include($column->view)
+                                    </td>
+                                    @endif
                                     @if(property_exists($column, 'isBool') && $column->isBool)
                                     <td class="text-center {{$column->classes}}">
                                         @if($row[$column->key])

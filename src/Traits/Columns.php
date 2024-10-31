@@ -39,6 +39,21 @@ trait Columns
         return $this;
     }
 
+    public function trueIs($true): self {
+        $this->what_is_true = $true;
+        return $this;
+    }
+
+    public function trueLabel($string): self {
+        $this->true_icon = $string;
+        return $this;
+    }
+
+    public function falseLabel($string): self {
+        $this->false_icon = $string;
+        return $this;
+    }
+
     public function toHtml(): self {
         $this->isHtml = true;
         return $this;

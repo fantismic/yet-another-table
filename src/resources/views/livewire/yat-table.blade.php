@@ -105,7 +105,11 @@
                               @if (!$column->isHidden && $column->isVisible)
                                     @if(property_exists($column, 'isBool') && $column->isBool)
                                     <td class="text-center {{$column->classes}}">
-                                        {{ ($row[$column->key]) ? '✔️' : '❌' }}
+                                        @if($column->what_is_true === $row[$column->key])
+                                            {!! $column->true_icon !!}
+                                        @else
+                                            {!! $column->false_icon !!}
+                                        @endif
                                     </td>
                                     @elseif(property_exists($column, 'isHtml') && $column->isHtml)
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}} ">

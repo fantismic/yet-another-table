@@ -6,6 +6,11 @@ trait Search
 {
 
     public $search = ''; // Search input binding
+    public $search_label;
+
+    public function setSearchLabel(string $label) {
+        $this->search_label = $label;
+    }
 
     public function updatingSearch()
     {

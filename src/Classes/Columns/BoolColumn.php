@@ -11,6 +11,10 @@ class BoolColumn extends Column
     use Columns;
 
     public $isBool = true;
+    public $what_is_true;
+    public $true_icon = '✔️';
+    public $false_icon = '❌';
+
 
     public function __construct(string $label, ?string $key = null) {
         parent::__construct($label, $key);

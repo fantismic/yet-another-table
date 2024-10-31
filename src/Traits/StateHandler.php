@@ -3,9 +3,7 @@
 namespace Fantismic\YetAnotherTable\Traits;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use WireUi\Traits\WireUiActions;
 
 trait StateHandler
 {

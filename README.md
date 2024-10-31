@@ -335,6 +335,15 @@ If *setSortColumn* is set, you can set the direction 'desc' by default.
 $this->setSortDirectionDesc(true);
 ```
 
+#### Set search placeholder
+`setSearchLabel(string $title)`
+
+By default the global search placeholder is "Search", you can change it for whatever you want here.
+
+```
+$this->setSearchLabel('Find');
+```
+
 ### Bulk
 
 #### Enable bulk
@@ -538,8 +547,15 @@ Column::make('Not so important data','meh-column')
 
 You can use this column to boolean values, they will render in table view as ✔️ and ❌.
 
+You can set what is considered `true` for a strict comparison with the `trueIs()`.
+
+Also, you can customize the label/icons to appear in each case with `trueLabel()` and `falseLabel()`
+
 ```
-BoolColumn::make('User status','isActive'),
+BoolColumn::make('User status','isActive')
+    ->trueIs('enabled')
+    ->trueLabel('User Active')
+    ->falseLabel('<i class="icon"></i>')
 ```
 
 #### Link columns

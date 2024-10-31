@@ -105,7 +105,7 @@
                               @if (!$column->isHidden && $column->isVisible)
                                     @if(property_exists($column, 'isBool') && $column->isBool)
                                     <td class="text-center {{$column->classes}}">
-                                        @if($column->what_is_true === $row[$column->key])
+                                        @if($row[$column->key])
                                             {!! $column->true_icon !!}
                                         @else
                                             {!! $column->false_icon !!}

@@ -11,7 +11,7 @@ class BoolColumn extends Column
     use Columns;
 
     public $isBool = true;
-    public $what_is_true;
+    public $what_is_true = 1;
     public $true_icon = '✔️';
     public $false_icon = '❌';
 

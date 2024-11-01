@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Cache;
 trait Data
 {
 
+    private $cachePrefix = '';
+
     public function getAllData() {
-        return Cache::get(static::class.'\\'.Auth::user()->username);
+        return Cache::get($this->cachePrefix.static::class.'\\'.Auth::user()->username);
     }
 
     public function getAfterFiltersData() {
@@ -23,6 +25,10 @@ trait Data
         return $this->getAllData()->whereIn('id', $this->getSelectedRows())->values();
     }
 
+    public function setCachePrefix(string $string) {
+        $this->cachePrefix = $string;
+    }
+
     public function parseData() {
 
         $this->clearData();
@@ -30,6 +36,13 @@ trait Data
         $this->userData = collect();
 
         $data = $this->data();
+
+        $this->dispatch('yatDataGathered');
+        if ($data) {
+            $this->dispatch('yatDataGatheredWithData');
+        } else {
+            $this->dispatch('yatDataGatheredEmpty');
+        }
 
         $customData = $this->getCustomData();
         $linkColumns = $this->getLinkColumns();
@@ -78,14 +91,13 @@ trait Data
     }
 
     public function cacheData() {
-        if (!Cache::has(static::class.'\\'.Auth::user()->username)) {
-            Cache::put(static::class.'\\'.Auth::user()->username, $this->userData, now()->addMinutes(30));
+        if (!Cache::has($this->cachePrefix.static::class.'\\'.Auth::user()->username)) {
+            Cache::put($this->cachePrefix.static::class.'\\'.Auth::user()->username, $this->userData, now()->addMinutes(30));
         }
     }
 
     public function clearData() {
-        Cache::forget(static::class.'\\'.Auth::user()->username);
+        Cache::forget($this->cachePrefix.static::class.'\\'.Auth::user()->username);
     }
 
 }
-

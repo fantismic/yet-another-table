@@ -9,16 +9,21 @@ trait StateHandler
 {
 
   public $handle_state = false;
+  public $handler_prefix = '';
 
   public function useStateHandler(Bool $bool) {
     $this->handle_state = $bool;
+  }
+
+  public function setHandlerPrefix(string $string) {
+    $this->handler_prefix = $string;
   }
 
   public function saveTableState() {
     if ($this->handle_state) {
       try {
         DB::table('yat_user_table_config')->updateOrInsert(
-          ['user_id' => Auth::user()->id, 'table' => static::class],
+          ['user_id' => Auth::user()->id, 'table' => $this->handler_prefix.static::class],
           ['configuration' => json_encode($this->columns->pluck('isVisible','key'))]);
           
           $this->dispatch('tableStateSaved', true);
@@ -30,7 +35,7 @@ trait StateHandler
 
   public function setTableState() {
     if ($this->handle_state) {
-      $state = DB::table('yat_user_table_config')->where(['user_id' => Auth::user()->id, 'table' => static::class])->first()->configuration ?? false;
+      $state = DB::table('yat_user_table_config')->where(['user_id' => Auth::user()->id, 'table' => $this->handler_prefix.static::class])->first()->configuration ?? false;
       
       if ($state) {
         $state = json_decode($state,true);

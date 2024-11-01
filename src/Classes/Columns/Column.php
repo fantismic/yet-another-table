@@ -35,6 +35,7 @@ class Column
     protected function generateUniqueKey(string $label): string {
         
         // Convert label to a slug with underscore separator
+        if ($label == "#") $label = "hash";
         $baseKey = Str::slug($label, '_');
         $key = $baseKey;
         $counter = 1;

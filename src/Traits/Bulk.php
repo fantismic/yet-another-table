@@ -14,14 +14,9 @@ trait Bulk
 
     public function updatedSelectAll($value)
     {
-        $data = $this->getAllData();
-        // Get the filtered data based on search
-        $filteredData = $data->filter(function ($item) {
-            return collect($item)->filter(fn($value) => str_contains(strtolower($value), strtolower($this->search)))->isNotEmpty();
-        });
-
+        $data = $this->getAfterFiltersData();
         // If selectAll is checked, select all visible row IDs; otherwise, clear the selected array
-        $this->selected = $value ? $filteredData->pluck($this->column_id)->toArray() : [];
+        $this->selected = $value ? $data->pluck($this->column_id)->toArray() : [];
     }
 
     public function toggleSelection($id)

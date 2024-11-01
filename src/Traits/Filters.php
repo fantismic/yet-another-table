@@ -108,4 +108,12 @@ trait Filters
         });
     }
 
+    public function clearAllFilters() {
+        $this->yat_global_search = '';
+        if ($this->filters) {
+            foreach ($this->filters as $key => $filter) {
+                $filter->input = null;
+            }
+        }
+    }
 }

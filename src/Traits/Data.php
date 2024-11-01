@@ -10,6 +10,8 @@ trait Data
 {
 
     public $cachePrefix = '';
+    public $all_data_count;
+    public $filtered_data_count;
 
     public function getAllData() {
         return $this->getCachedData();
@@ -18,6 +20,7 @@ trait Data
     public function getAfterFiltersData() {
         $data = $this->filteredData();
         $data = $this->applyFilters($data);
+        $this->filtered_data_count = count($data);
         return $data;
     }
 

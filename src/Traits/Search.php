@@ -5,11 +5,11 @@ namespace Fantismic\YetAnotherTable\Traits;
 trait Search
 {
 
-    public $search = ''; // Search input binding
-    public $search_label;
+    public $yat_global_search = ''; // Search input binding
+    public $yat_global_search_label;
 
     public function setSearchLabel(string $label) {
-        $this->search_label = $label;
+        $this->yat_global_search_label = $label;
     }
 
     public function updatingSearch()
@@ -23,7 +23,7 @@ trait Search
         $data = $this->getAllData();
         
         // Ensure the search term is properly trimmed and lowercased
-        $searchTerm = strtolower(trim($this->search));
+        $searchTerm = strtolower(trim($this->yat_global_search));
     
         // If no search term, return the original collection
         if (empty($searchTerm)) {

@@ -11,6 +11,7 @@ return [
     'empty_search' => 'No hay resultados para su búsqueda',
     'all' => 'todos',
     'true' => 'si',
-    'false' => 'no'
+    'select_filter_warning' => 'Se seleccionaron <b>:filtered_count</b> registros de <b>:all_data_count</b>. Para seleccionar todos los registros debe ',
+    'remove_all_filters' => 'eliminar los filtros'
 
 ];

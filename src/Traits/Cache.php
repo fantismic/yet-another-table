@@ -15,6 +15,7 @@ trait Cache
     }
 
     public function cacheData() {
+        $this->all_data_count = count($this->userData);
         if (!CacheFacade::has($this->cachePrefix.static::class.'\\'.Auth::user()->username)) {
             CacheFacade::put($this->cachePrefix.static::class.'\\'.Auth::user()->username, $this->userData, now()->addMinutes(30));
         }

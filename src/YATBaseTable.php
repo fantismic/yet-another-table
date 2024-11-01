@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Fantismic\YetAnotherTable\Traits\Bulk;
+use Fantismic\YetAnotherTable\Traits\Cache;
 use Fantismic\YetAnotherTable\Traits\Data;
 use Fantismic\YetAnotherTable\Traits\Sort;
 use Fantismic\YetAnotherTable\Traits\View;
@@ -16,6 +17,7 @@ use Fantismic\YetAnotherTable\Traits\Options;
 use Fantismic\YetAnotherTable\Traits\Pagination;
 use Fantismic\YetAnotherTable\Traits\StateHandler;
 use Fantismic\YetAnotherTable\Traits\RowManipulators;
+use Fantismic\YetAnotherTable\Traits\Spinner;
 
 class YATBaseTable extends Component
 {
@@ -24,6 +26,7 @@ class YATBaseTable extends Component
         WithPagination
         ;
     use 
+        Cache,
         Data,
         Columns,
         Bulk,
@@ -34,7 +37,8 @@ class YATBaseTable extends Component
         StateHandler,
         RowManipulators,
         View,
-        Filters
+        Filters,
+        Spinner
         ;
 
     private $userData;

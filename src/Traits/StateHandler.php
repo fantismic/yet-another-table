@@ -3,6 +3,7 @@
 namespace Fantismic\YetAnotherTable\Traits;
 
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Renderless;
 use Illuminate\Support\Facades\Auth;
 
 trait StateHandler
@@ -27,6 +28,7 @@ trait StateHandler
           ['configuration' => json_encode($this->columns->pluck('isVisible','key'))]);
           
           $this->dispatch('tableStateSaved', true);
+          $this->column_toggle_dd_status = false;
       } catch (\Throwable $th) {
         $this->dispatch('tableStateSaved', false);
       }

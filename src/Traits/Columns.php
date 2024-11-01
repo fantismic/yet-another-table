@@ -12,6 +12,7 @@ trait Columns
     public $custom_column_id = 'id';
     public $columns;
     public $show_column_toggle = true;
+    public $column_toggle_dd_status = false;
 
     public function setColumns() {
         $this->columns = collect($this->columns());

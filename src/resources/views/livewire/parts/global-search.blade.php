@@ -4,10 +4,10 @@
         for="globalSearch" 
     >       
         <input 
-            wire:model.live="search" 
+            wire:model.live.debounce.200ms="search" 
             placeholder="{{ $search_label ?? ucfirst(__('yat::yat.search')) }}" 
             type="text" 
-            class="min-w-[24rem] bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 p-0 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-300 " 
+            class="min-w-[24rem] bg-transparent block w-full border-0 text-gray-900 dark:text-gray-400 p-0 outline-none ring-0 sm:text-sm sm:leading-6 focus:ring-0 focus:border-0 placeholder:text-gray-400 dark:placeholder:text-gray-500 " 
             autocomplete="off"
             id="globalSearch" 
             name="globalSearch"

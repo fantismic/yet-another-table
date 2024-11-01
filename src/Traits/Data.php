@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Cache;
 trait Data
 {
 
-    private $cachePrefix = '';
+    public $cachePrefix = '';
 
     public function getAllData() {
-        return Cache::get($this->cachePrefix.static::class.'\\'.Auth::user()->username);
+        return $this->getCachedData();
     }
 
     public function getAfterFiltersData() {
@@ -23,10 +23,6 @@ trait Data
 
     public function getSelectedData() {
         return $this->getAllData()->whereIn('id', $this->getSelectedRows())->values();
-    }
-
-    public function setCachePrefix(string $string) {
-        $this->cachePrefix = $string;
     }
 
     public function parseData() {
@@ -88,16 +84,6 @@ trait Data
             unset($this->columns[$key]->href);
         }
         return $linkColumns;
-    }
-
-    public function cacheData() {
-        if (!Cache::has($this->cachePrefix.static::class.'\\'.Auth::user()->username)) {
-            Cache::put($this->cachePrefix.static::class.'\\'.Auth::user()->username, $this->userData, now()->addMinutes(30));
-        }
-    }
-
-    public function clearData() {
-        Cache::forget($this->cachePrefix.static::class.'\\'.Auth::user()->username);
     }
 
 }

@@ -80,6 +80,7 @@
                         class="hidden d-none bg-red" 
                         @if($loading_table_spinner) 
                             wire:loading.long.class.remove="hidden d-none"
+                            wire:target="{{$trigger_spinner}}"
                         @endif
                         
                     >
@@ -94,6 +95,7 @@
                             class="hover:bg-gray-100 dark:hover:bg-gray-600 border-b md:border-none transition-colors odd:bg-white even:bg-gray-50 dark:odd:bg-gray-700 dark:even:bg-gray-800"
                             @if($loading_table_spinner) 
                                 wire:loading.long.class.add="hidden d-none"
+                                wire:target="{{$trigger_spinner}}"
                             @endif
                         >
                             @if ($has_bulk)
@@ -107,8 +109,7 @@
                                     <td>
                                         @include($column->view)
                                     </td>
-                                    @endif
-                                    @if(property_exists($column, 'isBool') && $column->isBool)
+                                    @elseif(property_exists($column, 'isBool') && $column->isBool)
                                     <td class="text-center {{$column->classes}}">
                                         @if($row[$column->key])
                                             {!! $column->true_icon !!}
@@ -136,6 +137,7 @@
                         <tr
                             @if($loading_table_spinner) 
                                 wire:loading.long.class.add="hidden d-none"
+                                wire:target="{{$trigger_spinner}}"
                             @endif
                         >
                             <td colspan="{{ $cols = ($has_bulk) ? count($columns) + 1 : count($columns) }}" class="text-center py-5">

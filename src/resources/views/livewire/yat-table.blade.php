@@ -79,7 +79,7 @@
                     <tr >
                         <td colspan="{{ $cols = ($has_bulk) ? count($columns) + 1 : count($columns) }}">
                             <div class="px-5 py-3 whitespace-nowrap text-pretty text-base font-normal text-gray-700 dark:text-gray-300">                                
-                                {!! ucfirst(__('yat::yat.select_filter_warning',['filtered_count' => $filtered_data_count, 'all_data_count' => $all_data_count])) !!} <span class="cursor-pointer font-bold underline" wire:click="clearAllFilters">{{__('yat::yat.remove_all_filters')}}</span>
+                                {!! ucfirst(__('yat::yat.select_filter_warning',['filtered_count' => $filtered_data_count, 'all_data_count' => $all_data_count])) !!} <span class="cursor-pointer font-bold underline" wire:click="clearAllFilters(true)">{{__('yat::yat.remove_all_filters')}}</span>
                             </div>
                         </td>
                     </tr>

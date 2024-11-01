@@ -14,6 +14,10 @@ trait Bulk
 
     public function updatedSelectAll($value)
     {
+        $this->select_all_data($value);
+    }
+
+    public function select_all_data($value) {
         $data = $this->getAfterFiltersData();
         // If selectAll is checked, select all visible row IDs; otherwise, clear the selected array
         $this->selected = $value ? $data->pluck($this->column_id)->toArray() : [];

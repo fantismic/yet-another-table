@@ -37,7 +37,12 @@ trait Columns
     }
 
     public function styling(String $classes): self {
-        $this->classes = "!".str_replace(' ',' !',trim($classes));
+        $this->classes = $classes;
+        return $this;
+    }
+
+    public function thStyling(String $classes): self {
+        $this->th_classes = $classes;
         return $this;
     }
 

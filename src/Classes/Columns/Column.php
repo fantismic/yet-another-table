@@ -17,6 +17,7 @@ class Column
     public $hideFromSelector = false;
     public $customData = null;
     public $classes = '';
+    public $th_classes = '';
 
     protected static $existingKeys = [];
 

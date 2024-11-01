@@ -55,7 +55,7 @@
                         @endif
                         @foreach ($columns as $column)
                             @if (!$column->isHidden && $column->isVisible)
-                                <th wire:click="sortBy('{{ $column->key }}')" class="px-5 py-3 cursor-pointer text-xs font-medium whitespace-nowrap uppercase tracking-wider text-gray-500 dark:bg-gray-800 dark:text-gray-400" >
+                                <th wire:click="sortBy('{{ $column->key }}')" class="px-5 py-3 cursor-pointer text-xs font-medium whitespace-nowrap uppercase tracking-wider text-gray-500 dark:bg-gray-800 dark:text-gray-400 {{$column->th_classes}}" >
                                     <div class="{{ (property_exists($column, 'isBool') && $column->isBool) ? 'text-center' : 'text-left' }}">
                                         <span class="">{{ $column->label }}</span>
                                         <span class="text-xs">
@@ -92,7 +92,7 @@
                     @endif
                     @forelse ($rows as $key => $row)
                         <tr
-                            class="hover:bg-gray-100 dark:hover:bg-gray-600 border-b md:border-none transition-colors odd:bg-white even:bg-gray-50 dark:odd:bg-gray-700 dark:even:bg-gray-800"
+                            class="hover:bg-gray-100 dark:hover:bg-gray-600 border-b md:border-none transition-colors even:bg-white odd:bg-gray-50 dark:even:bg-gray-700 dark:odd:bg-gray-800"
                             @if($loading_table_spinner) 
                                 wire:loading.long.class.add="hidden d-none"
                                 wire:target="{{$trigger_spinner}}"

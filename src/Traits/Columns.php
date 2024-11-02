@@ -85,6 +85,20 @@ trait Columns
         return $this;
     }
 
+    public function target(string $target): self {
+        if ($this->isLink) {
+            $this->target = $target;
+        }
+        return $this;
+    }
+
+    public function popup(array $array = ["width" => 750,"height"=>800]): self {
+        if ($this->isLink) {
+            $this->popup = $array;
+        }
+        return $this;
+    }
+
     public function classes($classes): self {
         if ($this->isLink) {
             $this->tag_classes = $classes;

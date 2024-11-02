@@ -132,7 +132,11 @@
                                     </td>
                                     @elseif(property_exists($column, 'isLink') && $column->isLink)
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}} ">
-                                        <a href="{{$column->parsed_href[$key]}}" class="{{$column->tag_classes ?? ''}}">{{ $column->text ?? $row[$column->key] }}</a>
+                                        @if(property_exists($column, 'popup'))
+                                            <a onclick="openPopup{{$column->key}}('{{ $column->parsed_href[$key] }}')" class="{{$column->tag_classes ?? 'cursor-pointer'}}">{!! $column->text ?? $row[$column->key] !!}</a>
+                                        @else
+                                            <a href="{{$column->parsed_href[$key]}}" class="{{$column->tag_classes ?? 'cursor-pointer'}}">{!! $column->text ?? $row[$column->key] !!}</a>
+                                        @endif
                                     </td>
                                     @else
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}}">
@@ -163,4 +167,24 @@
     </div>
 
     @includeWhen($modals_view,$modals_view)
+
+    <!-- PopUp -->
+    @foreach ($columns as $column)
+        @if(property_exists($column, 'isLink') && $column->isLink && property_exists($column, 'popup'))
+            <script>
+                function openPopup{{$column->key}}(url) {
+                    const width = {{ $column->popup["width"] }};
+                    const height = {{ $column->popup["height"] }};
+                    const left = (screen.width - width) / 2;
+                    const top = (screen.height - height) / 2;
+            
+                    window.open(
+                        url,
+                        '',
+                        `width=${width},height=${height},top=${top},left=${left},resizable,scrollbars`
+                    );
+                }
+            </script>
+        @endif
+    @endforeach
   </section>

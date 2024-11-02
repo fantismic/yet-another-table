@@ -133,9 +133,9 @@
                                     @elseif(property_exists($column, 'isLink') && $column->isLink)
                                     <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}} ">
                                         @if(property_exists($column, 'popup'))
-                                            <a onclick="openPopup{{$column->key}}('{{ $row[$column->key]['parsed_href'] }}')" class="{{$column->tag_classes ?? 'cursor-pointer'}}">{!! $row[$column->key]['text'] ?? $row[$column->key] !!}</a>
+                                            <a onclick="openPopup{{$column->key}}('{{ $row[$column->key]['parsed_href'] }}')" class="{{$column->tag_classes ?? 'cursor-pointer'}}">{!! $row[$column->key]['text'] !!}</a>
                                         @else
-                                            <a href="{{$row[$column->key]['parsed_href']}}" class="{{$column->tag_classes ?? 'cursor-pointer'}}">{!! $row[$column->key]['text'] ?? $row[$column->key] !!}</a>
+                                            <a href="{{$row[$column->key]['parsed_href']}}" class="{{$column->tag_classes ?? 'cursor-pointer'}}">{!! $row[$column->key]['text'] !!}</a>
                                         @endif
                                     </td>
                                     @else

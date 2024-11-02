@@ -57,7 +57,7 @@ trait Data
                 if (isset($linkColumns[$column->key])) {
                     $parsedValue = [];
                     $parsedValue['parsed_href'] = call_user_func_array($linkColumns[$column->key]['function'], [$row, $row[$column->index] ?? null]);
-                    $parsedValue['text'] = $row[$column->index];
+                    $parsedValue['text'] = $column->text ?? $row[$column->index];
                 }
                 $parsedRow[$column->key] = $parsedValue;
             }

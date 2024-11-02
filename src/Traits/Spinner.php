@@ -4,7 +4,7 @@ namespace Fantismic\YetAnotherTable\Traits;
 
 trait Spinner
 {
-    public $trigger_spinner='gotoPage, previousPage, nextPage, updatedSelectAll, sortBy, removeRowFromTable, search, filters, perPage';
+    public $trigger_spinner='gotoPage, previousPage, nextPage, updatedSelectAll, sortBy, removeRowFromTable, yat_global_search, filters, perPage';
 
     public $loading_table_spinner = true;
     public $loading_table_spinner_custom_view;

@@ -23,6 +23,7 @@
                     />             
                 </label>
                 <button 
+                    tabindex="-1"
                     type="button" 
                     class="absolute inset-y-0 right-0 flex items-center pr-3 pt-5"
                     x-show="!!$wire.get('filters.{{$key}}.input')"
@@ -53,6 +54,7 @@
                 </label>
             
                 <button 
+                    tabindex="-1"
                     type="button" 
                     class="absolute inset-y-0 right-0 flex items-center pr-3 pt-5"
                     x-show="!!$wire.get('filters.{{$key}}.input')"  

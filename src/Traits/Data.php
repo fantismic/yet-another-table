@@ -55,9 +55,9 @@ trait Data
                     $parsedValue = call_user_func_array($customData[$column->key]['function'], [$row, $row[$column->index] ?? null]);
                 }
                 if (isset($linkColumns[$column->key])) {
-                    $parsedValue = [];
-                    $parsedValue['parsed_href'] = call_user_func_array($linkColumns[$column->key]['function'], [$row, $row[$column->index] ?? null]);
-                    $parsedValue['text'] = $column->text ?? $row[$column->index];
+                    $href = call_user_func_array($linkColumns[$column->key]['function'], [$row, $row[$column->index] ?? null]);
+                    $text = $column->text ?? $row[$column->index];
+                    $parsedValue = json_encode(array($href,$text));
                 }
                 $parsedRow[$column->key] = $parsedValue;
             }

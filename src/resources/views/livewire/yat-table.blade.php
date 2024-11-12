@@ -120,7 +120,7 @@
                                     </td>
                                     @elseif(property_exists($column, 'isBool') && $column->isBool)
                                     <td class="text-center {{$column->classes}}">
-                                        @if($row[$column->key])
+                                        @if($row[$column->key] === true || strtolower($row[$column->key]) == "true" || strtolower($row[$column->key]) == "1" || strtolower($row[$column->key]) === 1)
                                             {!! $column->true_icon !!}
                                         @else
                                             {!! $column->false_icon !!}

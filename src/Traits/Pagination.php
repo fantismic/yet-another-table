@@ -25,19 +25,9 @@ trait Pagination
     public function paginateData() {
         $data = $this->getAfterFiltersData();
         
-        
         // Apply sorting before pagination
-        if ($this->sortColumn) {
-            $data = $data->sortBy(function ($item) {
-                return $item[strtolower($this->sortColumn)];
-            });
+        $data = $this->sortData($data);
         
-            if ($this->sortDirection === 'desc') {
-                $data = $data->reverse();
-            }
-        }
-        
-
         $currentPage = \Illuminate\Pagination\Paginator::resolveCurrentPage();
         
         $paginatedData = new \Illuminate\Pagination\LengthAwarePaginator(

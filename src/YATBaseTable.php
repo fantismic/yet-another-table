@@ -66,6 +66,7 @@ class YATBaseTable extends Component
             $paginatedData = $this->paginateData();
         } else {
             $paginatedData=$this->getAfterFiltersData();
+            $paginatedData = $this->sortData($paginatedData);
         }
         
         return view('YATPackage::livewire.yat-table', [

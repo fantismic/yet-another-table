@@ -36,5 +36,19 @@ trait Sort
             $this->sortDirection = 'asc';
         }
     }
+
+    public function sortData($data) {
+        if ($this->sortColumn) {
+            $data = $data->sortBy(function ($item) {
+                return $item[strtolower($this->sortColumn)];
+            });
+        
+            if ($this->sortDirection === 'desc') {
+                $data = $data->reverse();
+            }
+        }
+
+        return $data;
+    }
 }
 

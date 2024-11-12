@@ -12,8 +12,8 @@ class BoolColumn extends Column
 
     public $isBool = true;
     public $what_is_true = 1;
-    public $true_icon = '✔️';
-    public $false_icon = '❌';
+    public $true_icon = '<span style="color: green; font-family: Arial, sans-serif;">&#10004;</span>';
+    public $false_icon = '<span style="color: red; font-family: Arial, sans-serif;">&#10005;</span>';
 
 
     public function __construct(string $label, ?string $key = null) {

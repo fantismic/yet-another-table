@@ -46,6 +46,11 @@ trait Columns
         return $this;
     }
 
+    public function thWrapperStyling(String $classes): self {
+        $this->th_wrapper_classes = $classes;
+        return $this;
+    }
+
     public function isBool(): self {
         $this->isBool = true;
         return $this;

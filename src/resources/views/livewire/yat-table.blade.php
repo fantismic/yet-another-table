@@ -56,7 +56,7 @@
                         @foreach ($columns as $column)
                             @if (!$column->isHidden && $column->isVisible)
                                 <th wire:click="sortBy('{{ $column->key }}')" class="px-5 py-3 cursor-pointer text-xs font-medium whitespace-nowrap uppercase tracking-wider text-gray-500 dark:bg-gray-800 dark:text-gray-400 {{$column->th_classes}}" >
-                                    <div class="{{ (property_exists($column, 'isBool') && $column->isBool) ? 'text-center' : 'text-left' }}">
+                                    <div class="{{ (property_exists($column, 'isBool') && $column->isBool) ? 'text-center' : 'text-left' }} {{ (property_exists($column, 'th_wrapper_classes')) ? $column->th_wrapper_classes : '' }}">
                                         <span class="">{{ $column->label }}</span>
                                         <span class="text-xs">
                                             @if ($sortColumn === $column->key)

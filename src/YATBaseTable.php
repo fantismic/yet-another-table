@@ -5,25 +5,26 @@ namespace Fantismic\YetAnotherTable;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 use Fantismic\YetAnotherTable\Traits\Bulk;
-use Fantismic\YetAnotherTable\Traits\Cache;
 use Fantismic\YetAnotherTable\Traits\Data;
 use Fantismic\YetAnotherTable\Traits\Sort;
 use Fantismic\YetAnotherTable\Traits\View;
+use Fantismic\YetAnotherTable\Traits\Cache;
 use Fantismic\YetAnotherTable\Traits\Search;
 use Fantismic\YetAnotherTable\Traits\Columns;
 use Fantismic\YetAnotherTable\Traits\Filters;
 use Fantismic\YetAnotherTable\Traits\Options;
+use Fantismic\YetAnotherTable\Traits\Spinner;
 use Fantismic\YetAnotherTable\Traits\Pagination;
 use Fantismic\YetAnotherTable\Traits\StateHandler;
 use Fantismic\YetAnotherTable\Traits\RowManipulators;
-use Fantismic\YetAnotherTable\Traits\Spinner;
 
 class YATBaseTable extends Component
 {
 
     use
-        WithPagination
+        WithPagination, WithoutUrlPagination
         ;
     use 
         Cache,

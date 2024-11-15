@@ -31,6 +31,7 @@ trait Data
     public function parseData() {
 
         $this->clearData();
+        $this->resetPage();
 
         $this->userData = collect();
 

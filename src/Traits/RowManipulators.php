@@ -16,4 +16,13 @@ trait RowManipulators
         $this->updateCacheData($data);
     }
 
+    public function addRowToTable($row) {
+        $data = $this->getAllData();
+        if (!isset($row['id'])) {
+            $row['id'] = $row[$this->column_id];
+        }
+        $data->push($row);
+        $this->updateCacheData($data);
+    }
+
 }

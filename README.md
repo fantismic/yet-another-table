@@ -169,6 +169,9 @@ public function mount() {
 - [Set column ID](#set-column-id)
 - [Show column toggle button](#show-column-toggle-button)
 - [Add row to table](#add-row-to-table)
+- [Remove row from table](#remove-row-from-table)
+- [Expanded rows](#expanded-rows)
+
 
 ## [Columns](#columns-1)
 

@@ -83,7 +83,11 @@ class GenericExport implements FromCollection, WithHeadings, WithStyles, WithCol
 
                 // Check each row to find the maximum length of the data in this column
                 foreach ($this->data as $item) {
-                    $valueLength = strlen((string)$item[$heading] ?? ''); // Access property using object notation
+                    if ($this->strip_tags) {
+                        $valueLength = strlen((string)strip_tags($item[$heading]) ?? '');
+                    } else {
+                        $valueLength = strlen((string)$item[$heading] ?? '');
+                    }
                     if ($valueLength > $maxLength) {
                         $maxLength = $valueLength;
                     }

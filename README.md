@@ -168,6 +168,7 @@ public function mount() {
 ### [Misc](#misc-1)
 - [Set column ID](#set-column-id)
 - [Show column toggle button](#show-column-toggle-button)
+- [Add row to table](#add-row-to-table)
 
 ## [Columns](#columns-1)
 
@@ -437,6 +438,48 @@ Enabled by default, you can disable this button and remove it from view.
 
 ```
 $this->showColumnToggle(false);
+```
+
+#### Add row to table
+`$this->addRowToTable($row)`
+
+You can add a row to the table dinamically passing all the attributes required to form a row in your table.
+
+```
+$this->addRowToTable(["id"=>43,"color"=>"slate",...]);
+```
+
+#### Remove row from table
+`$this->removeRowFromTable($id, $resetSelected = true)`
+
+You can delete a row to the table dinamically passing the row ID, if you want to leave the "selectedRows" data, set $resetSelected to false.
+
+```
+$this->removeRowFromTable(43);
+```
+
+#### Expanded rows
+`$this->toggleExpandedRow($rowId, $content, $is_component=false)`
+
+You can trigger this function in order to create and display on demand a new row under the given row in $rowId.
+
+This function handles two types of content: html content and livewire component.
+
+When $is_component is set to false you can pass html to the $content variable and it will be rendered as {!! $content !!}
+
+When $is_component is set to true, the content variable must be an array with the keys "component" and "parameters", as name of the component and array with paramteres to pass to it.
+
+```
+$content="<div class="text-base">More data!</div>";
+$this->toggleExpandedRow(43,$content);
+
+----
+
+$content=[
+    "component" => "route.to.my.livewire.component",
+    "parameters" => ["my_custom_parameter" => "some_data"]
+];
+$this->toggleExpandedRow(43,$content,true);
 ```
 
 

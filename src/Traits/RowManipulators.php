@@ -2,8 +2,14 @@
 
 namespace Fantismic\YetAnotherTable\Traits;
 
+use Exception;
+
 trait RowManipulators
 {
+
+    public $yatable_expanded_rows = [];
+    public $yatable_expanded_rows_is_component = false;
+    public $yatable_expanded_rows_content = [];
 
     public function removeRowFromTable($id, $resetSelected = true) {
         $data = $this->getAllData();
@@ -25,4 +31,21 @@ trait RowManipulators
         $this->updateCacheData($data);
     }
 
+    public function toggleExpandedRow($rowId,$content,$is_component=false) {
+        $this->yatable_expanded_rows_is_component = $is_component;
+        if (in_array($rowId, $this->yatable_expanded_rows)) {
+            // If the row is already expanded, remove it
+            $this->yatable_expanded_rows = array_diff($this->yatable_expanded_rows, [$rowId]);
+            unset($this->yatable_expanded_rows_content[$rowId]);
+        } else {
+            // Otherwise, add it to the expanded rows
+            $this->yatable_expanded_rows[] = $rowId;
+            if ($is_component) {
+                if(!is_array($content) || !isset($content['component']) || !isset($content['parameters'])) {
+                    throw new Exception("When toggleExpandedRow \$is_component is true \$content must be an array with keys component and parameters", 1);
+                }
+            }
+            $this->yatable_expanded_rows_content[$rowId] = $content;
+        }
+    }
 }

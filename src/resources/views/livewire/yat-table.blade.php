@@ -145,6 +145,17 @@
                                 @endif
                             @endforeach
                         </tr>
+                        @if (isset($row[$column_id]) && in_array($row[$column_id], $yatable_expanded_rows))
+                            <tr>
+                                <td colspan="{{ $cols = ($has_bulk) ? count($columns) + 1 : count($columns) }}" class="p-1">
+                                    @if($yatable_expanded_rows_is_component)
+                                        @livewire($yatable_expanded_rows_content[$row[$column_id]]['component'], $yatable_expanded_rows_content[$row[$column_id]]['parameters'], key('yatable_expanded_rows_content'.$row[$column_id]))
+                                    @else
+                                        {!! $yatable_expanded_rows_content[$row[$column_id]] !!}
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
                     @empty
                         <tr
                             @if($loading_table_spinner) 

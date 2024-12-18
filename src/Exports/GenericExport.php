@@ -38,6 +38,17 @@ class GenericExport implements FromCollection, WithHeadings, WithStyles, WithCol
         }
     }
 
+    function getExcelColumnName($index)
+    {
+        $columnName = '';
+        while ($index > 0) {
+            $mod = ($index - 1) % 26;
+            $columnName = chr(65 + $mod) . $columnName;
+            $index = (int)(($index - $mod) / 26);
+        }
+        return $columnName;
+    }
+
     public function headings(): array
     {
         $this->headers = $this->original_headers = $this->data->isNotEmpty() ? array_keys((array)$this->data->first()) : [];
@@ -50,7 +61,7 @@ class GenericExport implements FromCollection, WithHeadings, WithStyles, WithCol
     public function styles(Worksheet $sheet)
     {
         if (!empty($this->headers)){
-            $sheet->setAutoFilter('A1:'.chr(64 + count($this->headers)).'1');
+            $sheet->setAutoFilter('A1:'.$this->getExcelColumnName(count($this->headers)).'1');
         }
 
         if ($this->sheetName) {
@@ -93,7 +104,7 @@ class GenericExport implements FromCollection, WithHeadings, WithStyles, WithCol
                     }
                 }
 
-                $widths[chr(65 + $index)] = $maxLength + 2; // Add a little padding
+                $widths[$this->getExcelColumnName($index + 1)] = $maxLength + 2; // Add a little padding
             }
         }
         return $widths;

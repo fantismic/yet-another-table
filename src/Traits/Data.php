@@ -61,6 +61,10 @@ trait Data
                     $parsedValue = json_encode(array($href,$text));
                 }
                 $parsedRow[$column->key] = $parsedValue;
+
+                if (property_exists($column, 'sortColumnBy')) {
+                    $parsedRow[$column->sortColumnBy] = $row[$column->sortColumnBy] ?? '';
+                }
             }
             if ($this->has_bulk && $this->custom_column_id) {
                 $parsedRow['id'] = $row[$this->custom_column_id];

@@ -134,6 +134,11 @@ trait Columns
         return $this;
     }
 
+    public function sortColumnBy(String $column): self {
+        $this->sortColumnBy = $column;
+        return $this;
+    }
+
 /*     public function generateTempID() {
         if ($this->has_bulk) {
             if (!$this->yatTableData->isEmpty()) {

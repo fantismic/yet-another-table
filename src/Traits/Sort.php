@@ -26,13 +26,16 @@ trait Sort
 
     public function sortBy($column)
     {
+        
+        $sort_column = $this->columns->where('key',$column)->whereNotNull('sortColumnBy')->first();
+        $sort_column = ($sort_column) ? $sort_column->sortColumnBy : $column;
 
-        if ($this->sortColumn === $column) {
+        if ($this->sortColumn === $sort_column) {
             // If already sorting by this column, toggle the direction
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
         } else {
             // Otherwise, set to this column and default to ascending
-            $this->sortColumn = $column;
+            $this->sortColumn = $sort_column;
             $this->sortDirection = 'asc';
         }
     }

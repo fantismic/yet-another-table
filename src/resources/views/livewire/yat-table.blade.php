@@ -1,5 +1,5 @@
 <section>
-    <div classes="{{$main_wrapper_classes}}" x-data="{showFilters: false}">
+    <div class="{{$main_wrapper_classes}}" x-data="{showFilters: false}">
         @if($customHeader) {!! $customHeader !!} @endif
         @if($title) <div class="{{($titleClasses ?? 'text-3xl font-thin text-gray-600 dark:text-gray-300 mb-4')}}">{{$title}}</div> @endif
         

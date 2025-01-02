@@ -27,8 +27,8 @@ trait Sort
     public function sortBy($column)
     {
         
-        $sort_column = $this->columns->where('key',$column)->whereNotNull('sortColumnBy')->first();
-        $sort_column = ($sort_column) ? $sort_column->sortColumnBy : $column;
+        $sort_column = $this->columns->where('key',$column)->first();
+        $sort_column = $sort_column->index."_sort" ?? $column;
 
         if ($this->sortColumn === $sort_column) {
             // If already sorting by this column, toggle the direction

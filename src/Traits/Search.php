@@ -30,15 +30,24 @@ trait Search
             return $data;
         }
         
-        // Apply filtering across all columns
-        return $data->filter(function ($item) use ($searchTerm) {
-            // Check if the search term exists in any of the item's values
-            foreach ($item as $value) {
-                if (str_contains(strtolower($value), $searchTerm)) {
-                    return true; // Return true if found in any column
+        // Preprocess the keys to search
+        $searchableKeys = collect($data->first() ?? [])->keys()->filter(function ($key) use ($data) {
+            // Include keys ending with "_search" or those without corresponding "_search" keys
+            if (str_ends_with($key, '_search')) {
+                return true;
+            }
+            $baseKey = preg_replace('/_search$/', '', $key);
+            return !array_key_exists($baseKey . '_search', $data->first());
+        });
+
+        // Filter the collection
+        return $data->filter(function ($item) use ($searchTerm, $searchableKeys) {
+            foreach ($searchableKeys as $key) {
+                if (isset($item[$key]) && str_contains(strtolower($item[$key]), strtolower($searchTerm))) {
+                    return true; // Match found
                 }
             }
-            return false; // Return false if not found
+            return false; // No match
         });
     }
 }

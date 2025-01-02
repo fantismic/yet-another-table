@@ -54,6 +54,8 @@ trait Data
                 $parsedValue = $row[$column->index] ?? '';
                 if (isset($customData[$column->key])) {
                     $parsedValue = call_user_func_array($customData[$column->key]['function'], [$row, $row[$column->index] ?? null]);
+                    $parsedRow[$column->index."_sort"] = $row[$column->index] ?? '';
+                    $parsedRow[$column->index."_search"] = $row[$column->index] ?? '';
                 }
                 if (isset($linkColumns[$column->key])) {
                     $href = call_user_func_array($linkColumns[$column->key]['function'], [$row, $row[$column->index] ?? null]);
@@ -61,17 +63,16 @@ trait Data
                     $parsedValue = json_encode(array($href,$text));
                 }
                 $parsedRow[$column->key] = $parsedValue;
-
-                if (property_exists($column, 'sortColumnBy')) {
-                    $parsedRow[$column->sortColumnBy] = $row[$column->sortColumnBy] ?? '';
-                }
             }
             if ($this->has_bulk && $this->custom_column_id) {
                 $parsedRow['id'] = $row[$this->custom_column_id];
             }
             $this->userData->push($parsedRow);
         }
-
+        
+        $this->userData = $this->userData->map(function ($item) {
+            return collect($item)->except(['_sort', '_search'])->toArray();
+        });
     }
 
     public function getCustomData() {

@@ -54,8 +54,8 @@ trait Data
                 $parsedValue = $row[$column->index] ?? '';
                 if (isset($customData[$column->key])) {
                     $parsedValue = call_user_func_array($customData[$column->key]['function'], [$row, $row[$column->index] ?? null]);
-                    $parsedRow[$column->index."_sort"] = $row[$column->index] ?? '';
-                    $parsedRow[$column->index."_search"] = $row[$column->index] ?? '';
+                    $parsedRow[strtolower($column->index."_sort")] = $row[$column->index] ?? '';
+                    $parsedRow[strtolower($column->index."_search")] = $row[$column->index] ?? '';
                 }
                 if (isset($linkColumns[$column->key])) {
                     $href = call_user_func_array($linkColumns[$column->key]['function'], [$row, $row[$column->index] ?? null]);

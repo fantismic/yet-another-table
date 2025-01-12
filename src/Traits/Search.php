@@ -33,11 +33,11 @@ trait Search
         // Preprocess the keys to search
         $searchableKeys = collect($data->first() ?? [])->keys()->filter(function ($key) use ($data) {
             // Include keys ending with "_search" or those without corresponding "_search" keys
-            if (str_ends_with($key, '_search')) {
+            if (str_ends_with($key, '_original')) {
                 return true;
             }
             $baseKey = preg_replace('/_search$/', '', $key);
-            return !array_key_exists($baseKey . '_search', $data->first());
+            return !array_key_exists($baseKey . '_original', $data->first());
         });
 
         // Filter the collection

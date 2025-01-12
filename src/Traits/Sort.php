@@ -28,7 +28,11 @@ trait Sort
     {
         
         $sort_column = $this->columns->where('key',$column)->first();
-        $sort_column = $sort_column->index."_sort" ?? $column;
+        if(property_exists($column,$sort_column->index."_original")) {
+            $sort_column = $sort_column->index."_original";
+        } else {
+            $sort_column = $column;
+        }
 
         if ($this->sortColumn === $sort_column) {
             // If already sorting by this column, toggle the direction

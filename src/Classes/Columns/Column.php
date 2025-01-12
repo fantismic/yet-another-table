@@ -18,6 +18,7 @@ class Column
     public $customData = null;
     public $classes = '';
     public $th_classes = '';
+    public $has_modified_data = false;
 
     protected static $existingKeys = [];
 

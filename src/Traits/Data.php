@@ -82,12 +82,14 @@ trait Data
                 if (isset($customData[$column->key])) {
                     $parsedValue = call_user_func_array($customData[$column->key]['function'], [$row, $row[$column->index] ?? null]);
                     $parsedRow[strtolower($column->key."_original")] = $row[$column->index] ?? '';
+                    $column->has_modified_data = true;
                 }
                 if (isset($linkColumns[$column->key])) {
                     $href = call_user_func_array($linkColumns[$column->key]['function'], [$row, $row[$column->index] ?? null]);
                     $text = $column->text ?? $row[$column->index];
                     $parsedValue = json_encode(array($href,$text));
                     $parsedRow[strtolower($column->key."_original")] = $text ?? '';
+                    $column->has_modified_data = true;
                 }
                 $parsedRow[$column->key] = $parsedValue;
             }

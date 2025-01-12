@@ -27,12 +27,7 @@ trait Sort
     public function sortBy($column)
     {
         
-        $sort_column = $this->columns->where('key',$column)->first();
-        if(property_exists($column,$sort_column->index."_original")) {
-            $sort_column = $sort_column->index."_original";
-        } else {
-            $sort_column = $column;
-        }
+        $sort_column = $this->columns->where('key',$column)->first()->key;
 
         if ($this->sortColumn === $sort_column) {
             // If already sorting by this column, toggle the direction
@@ -45,13 +40,26 @@ trait Sort
     }
 
     public function sortData($data) {
+
         if ($this->sortColumn) {
-            $data = $data->sortBy(function ($item) {
-                return $item[strtolower($this->sortColumn)];
-            });
-        
+            $sort_column = $this->columns->where('key',strtolower($this->sortColumn))->first();           
+
+            if ($sort_column->has_modified_data) {
+                $sort_column = $sort_column->key."_original";
+            } else {
+                $sort_column = $sort_column->key;    
+            }
+
             if ($this->sortDirection === 'desc') {
-                $data = $data->reverse();
+                
+                $data = $data->sortByDesc(function ($item) use ($sort_column) {
+                    info($sort_column);
+                    return $item[strtolower($sort_column)];
+                },SORT_NATURAL|SORT_FLAG_CASE);
+            } else {
+                $data = $data->sortBy(function ($item) use ($sort_column) {
+                    return $item[strtolower($sort_column)];
+                },SORT_NATURAL|SORT_FLAG_CASE);
             }
         }
 

@@ -53,7 +53,6 @@ trait Sort
             if ($this->sortDirection === 'desc') {
                 
                 $data = $data->sortByDesc(function ($item) use ($sort_column) {
-                    info($sort_column);
                     return $item[strtolower($sort_column)];
                 },SORT_NATURAL|SORT_FLAG_CASE);
             } else {

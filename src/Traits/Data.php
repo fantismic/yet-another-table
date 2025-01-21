@@ -43,7 +43,11 @@ trait Data
     public function getAfterFiltersData() {
         $data = $this->filteredData();
         $data = $this->applyFilters($data);
-        $this->filtered_data_count = count($data);
+        try {
+            $this->filtered_data_count = count($data);
+        } catch (\Throwable $th) {
+            $this->filtered_data_count = 0;
+        }
         return $data;
     }
 

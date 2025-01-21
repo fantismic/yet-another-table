@@ -13,7 +13,7 @@ trait Pagination
 
     public function updatedPerPageDisplay($value) {
         if ($value == 'Total') {
-            $this->perPage = $this->getAfterFiltersData()->count();
+            $this->perPage = 9999999999999;
             $this->perPageDisplay = 'Total';
         } else {
             $this->perPage = $value;
@@ -27,7 +27,7 @@ trait Pagination
 
     public function setPerPageDefault(Int $number) {
         if ($number == 0) {
-            $this->perPage = $this->getAfterFiltersData()->count();
+            $this->perPage = 9999999999999;
             $this->perPageDisplay = 'Total';
         } else {
             $this->perPage = $number;

@@ -7,14 +7,17 @@ trait Pagination
 
     public $paginationTheme = 'tailwind'; // Use Tailwind for pagination
     public $perPage = "10";
+    public $perPageDisplay = "10";
     public $perPageOptions = ["10", "15", "25", "50", "100", "Total"];
     public $with_pagination = true;
 
-    public function updatedPerPage($value) {
+    public function updatedPerPageDisplay($value) {
         if ($value == 'Total') {
             $this->perPage = $this->getAfterFiltersData()->count();
+            $this->perPageDisplay = 'Total';
         } else {
             $this->perPage = $value;
+            $this->perPageDisplay = $value;
         }
     }
 
@@ -23,7 +26,13 @@ trait Pagination
     }
 
     public function setPerPageDefault(Int $number) {
-        $this->perPage = $number;
+        if ($number == 0) {
+            $this->perPage = $this->getAfterFiltersData()->count();
+            $this->perPageDisplay = 'Total';
+        } else {
+            $this->perPage = $number;
+            $this->perPageDisplay = $number;
+        }
     }
 
     public function setPerPageOptions(Array $array) {

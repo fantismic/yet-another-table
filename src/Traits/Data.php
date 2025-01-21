@@ -43,12 +43,12 @@ trait Data
     public function getAfterFiltersData() {
         $data = $this->filteredData();
         $data = $this->applyFilters($data);
-        try {
-            $this->filtered_data_count = count($data);
-        } catch (\Throwable $th) {
-            $this->filtered_data_count = 0;
+        if (is_null($data)) {                         
+            $this->filtered_data_count = 0;               
+        } else {                                      
+            $this->filtered_data_count = count($data);    
         }
-        return $data;
+        return $data;                                             
     }
 
     public function getSelectedOriginalData() {

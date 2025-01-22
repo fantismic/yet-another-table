@@ -65,7 +65,7 @@ class GenericExport implements FromCollection, WithHeadings, WithStyles, WithCol
         }
 
         if ($this->sheetName) {
-            $sheet->setTitle($this->sheetName);
+            #$sheet->setTitle($this->sheetName);
         }
 
         return [

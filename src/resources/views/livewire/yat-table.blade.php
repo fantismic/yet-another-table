@@ -109,7 +109,11 @@
                         >
                             @if ($has_bulk)
                                 <td class="px-5">
-                                    <input value="{{ $row[$column_id] }}"  type="checkbox" wire:model.live="selected" class="cursor-pointer  text-gray-500 bg-gray-100 border-gray-400 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    @if(in_array($row[$column_id], $yat_selected_checkbox))
+                                        <input value="{{ $row[$column_id] }}" id="{{ $row[$column_id] }}" type="checkbox" wire:change="changeYatSelectedCheckbox('{{$row[$column_id]}}')" class="cursor-pointer  text-gray-500 bg-gray-100 border-gray-400 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
+                                    @else
+                                        <input value="{{ $row[$column_id] }}" id="{{ $row[$column_id] }}" type="checkbox" wire:change="changeYatSelectedCheckbox('{{$row[$column_id]}}')" class="cursor-pointer  text-gray-500 bg-gray-100 border-gray-400 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    @endif
                                 </td>
                             @endif
                             @foreach ($columns as $column)

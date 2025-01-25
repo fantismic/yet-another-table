@@ -5,7 +5,7 @@ namespace Fantismic\YetAnotherTable\Traits;
 trait Bulk
 {
     public $has_bulk = false;
-    public $selected = []; // Stores the selected row IDs
+    public $yat_selected_checkbox = [];
     public $selectAll = false; // Controls the "Select All" checkbox
 
     public function hasBulk(Bool $bool) {
@@ -20,20 +20,22 @@ trait Bulk
     public function select_all_data($value) {
         $data = $this->getAfterFiltersData();
         // If selectAll is checked, select all visible row IDs; otherwise, clear the selected array
-        $this->selected = $value ? $data->pluck($this->column_id)->toArray() : [];
+        $this->yat_selected_checkbox = $value ? $data->pluck($this->column_id)->toArray() : [];
     }
 
-    public function toggleSelection($id)
+    public function changeYatSelectedCheckbox($id)
     {
-        if (in_array($id, $this->selected)) {
-            $this->selected = array_diff($this->selected, [$id]);
+
+        if (in_array($id, $this->yat_selected_checkbox)) {
+            $this->yat_selected_checkbox = array_diff($this->yat_selected_checkbox, [$id]);
         } else {
-            $this->selected[] = $id;
+            $this->yat_selected_checkbox[] = $id;
         }
+
     }
 
     public function getSelectedRows() {
-        return $this->selected;
+        return $this->yat_selected_checkbox;
     }
 
 }

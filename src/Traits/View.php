@@ -15,8 +15,8 @@ trait View
     
     public $modals_view;
 
-    public function enableCounter(bool $bool) {
-        $this->has_counter = true;
+    public function showCounter(bool $bool) {
+        $this->has_counter = $bool;
     }
 
     public function setTitle($title) {

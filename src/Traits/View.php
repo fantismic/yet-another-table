@@ -11,8 +11,13 @@ trait View
     public $table_classes;
     public $override_table_classes = false;
     public $sticky_header = false;
+    public $has_counter = true;
     
     public $modals_view;
+
+    public function enableCounter(bool $bool) {
+        $this->has_counter = true;
+    }
 
     public function setTitle($title) {
         $this->title = $title;

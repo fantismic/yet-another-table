@@ -48,6 +48,9 @@
             <table class="min-w-full border-collapse block md:table border border-gray-200 dark:border-gray-700">
                 <thead class="hidden md:table-header-group bg-gray-50 dark:bg-gray-800 {{ $sticky_header ? 'sticky -top-[0.125rem]' : '' }}">
                     <tr class="border-b md:border-none bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 uppercase text-sm leading-normal">
+                        @if($has_counter)
+                                <td class="pl-2">#</td>
+                            @endif
                         @if ($has_bulk)
                             <th class="text-left px-5">
                                 <input type="checkbox" wire:model.live="selectAll" class="cursor-pointer border-2 text-gray-500 bg-gray-100 border-gray-400 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
@@ -107,6 +110,9 @@
                                 wire:target="{{$trigger_spinner}}"
                             @endif
                         >
+                            @if($has_counter)
+                                <td class="pl-2 text-sm text-gray-600 dark:text-gray-300 font-extralight">{{ $loop->iteration }}</td>
+                            @endif
                             @if ($has_bulk)
                                 <td class="px-5">
                                     @if(in_array($row[$column_id], $yat_selected_checkbox))

@@ -17,7 +17,7 @@ trait Cache
     public function cacheData() {
         $this->all_data_count = count($this->userData);
         if (!CacheFacade::has($this->cachePrefix.static::class.'\\'.Auth::user()->username)) {
-            CacheFacade::put($this->cachePrefix.static::class.'\\'.Auth::user()->username, $this->userData, now()->addMinutes(30));
+            CacheFacade::put($this->cachePrefix.static::class.'\\'.Auth::user()->username, $this->userData, now()->addMinutes(60));
         }
     }
 
@@ -26,10 +26,13 @@ trait Cache
     }
     
     public function getCachedData() {
+        if (!CacheFacade::has($this->cachePrefix.static::class.'\\'.Auth::user()->username)) {
+            $this->mount();
+        }
         return CacheFacade::get($this->cachePrefix.static::class.'\\'.Auth::user()->username);
     }
 
     public function updateCacheData($data) {
-        CacheFacade::put($this->cachePrefix.static::class.'\\'.Auth::user()->username, $data, now()->addMinutes(30));
+        CacheFacade::put($this->cachePrefix.static::class.'\\'.Auth::user()->username, $data, now()->addMinutes(60));
     }
 }

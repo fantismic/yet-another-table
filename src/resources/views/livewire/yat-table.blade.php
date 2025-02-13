@@ -78,11 +78,19 @@
                 </thead>
 
                 <tbody class="block md:table-row-group">
-                    @if($selectAll && $filtered_data_count != $all_data_count)
+                    @if($selectAll && $all_data_count != count($rows))
                     <tr >
                         <td colspan="{{ $cols = ($has_bulk) ? count($columns) + 1 : count($columns) }}">
-                            <div class="px-5 py-3 whitespace-nowrap text-pretty text-base font-normal text-gray-700 dark:text-gray-300">                                
-                                {!! ucfirst(__('yat::yat.select_filter_warning',['filtered_count' => $filtered_data_count, 'all_data_count' => $all_data_count])) !!} <span class="cursor-pointer font-bold underline" wire:click="clearAllFilters(true)">{{__('yat::yat.remove_all_filters')}}</span>
+                            <div class="px-5 py-3 whitespace-nowrap text-pretty text-base font-normal text-gray-700 dark:text-gray-300">
+                                @if($filtered_data_count && $filtered_data_count != $all_data_count)
+                                    {!! ucfirst(__('yat::yat.select_filter_warning',['filtered_count' => $filtered_data_count, 'all_data_count' => $all_data_count])) !!} <span class="cursor-pointer font-bold underline" wire:click="clearAllFilters(true)">{{__('yat::yat.remove_all_filters')}}</span>
+                                @else
+                                    @if($pageSelected)
+                                        Se seleccionaron {{ count($rows) }} de {{ $all_data_count }} registros (página actual). Haga <span class="cursor-pointer font-bold underline" wire:click="select_all_data(true)">click aquí</span> para seleccionar todos los registros.
+                                    @else
+                                        Se seleccionaron todos los registros. Haga <span class="cursor-pointer font-bold underline" wire:click="selectCurrentPage(true)">click aquí</span> para seleccionar la página actual.
+                                    @endif
+                                @endif
                             </div>
                         </td>
                     </tr>

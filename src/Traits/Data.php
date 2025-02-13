@@ -59,6 +59,16 @@ trait Data
         return $this->getAllData()->whereIn('id', $this->getSelectedRows())->values();
     }
 
+    public function getCurrentPageData() {
+        if ($this->with_pagination) {
+            $paginatedData = $this->paginateData();
+            return collect($paginatedData->items());
+        } else {
+            $paginatedData=$this->getAfterFiltersData();
+            return $this->sortData($paginatedData);
+        }
+    }
+
     public function parseData() {
 
         $this->clearData();

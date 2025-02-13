@@ -19,6 +19,10 @@ trait Pagination
             $this->perPage = $value;
             $this->perPageDisplay = $value;
         }
+        $this->updatedSelectAll(false);
+        $this->selectAll = false;
+        $this->allSelected = false;
+        $this->pageSeleted = false;
     }
 
     public function usePagination(bool $bool) {

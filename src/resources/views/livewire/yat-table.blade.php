@@ -90,7 +90,7 @@
                                     {!! ucfirst(__('yat::yat.select_filter_warning',['filtered_count' => $filtered_data_count, 'all_data_count' => $all_data_count])) !!} <span class="cursor-pointer font-bold underline" wire:click="clearAllFilters(true)">{{__('yat::yat.remove_all_filters')}}</span>
                                 @else
                                     @if($pageSelected)
-                                        Se seleccionaron {{ count($rows) }} de {{ $all_data_count }} registros (página actual). Haga <span class="cursor-pointer font-bold underline" wire:click="select_all_data(true)">click aquí</span> para seleccionar todos los registros.
+                                        Se seleccionaron {{ count($yat_selected_checkbox) }} de {{ $all_data_count }} registros (página actual). Haga <span class="cursor-pointer font-bold underline" wire:click="select_all_data(true)">click aquí</span> para seleccionar todos los registros.
                                     @else
                                         Se seleccionaron todos los registros. Haga <span class="cursor-pointer font-bold underline" wire:click="selectCurrentPage(true)">click aquí</span> para seleccionar la página actual.
                                     @endif
@@ -127,11 +127,18 @@
                             @endif
                             @if ($has_bulk)
                                 <td class="px-5">
-                                    @if(in_array($row[$column_id], $yat_selected_checkbox))
+{{--                                     @if(in_array($row[$column_id], $yat_selected_checkbox))
                                         <input value="{{ $row[$column_id] }}" id="{{ $row[$column_id] }}" type="checkbox" wire:change="changeYatSelectedCheckbox('{{$row[$column_id]}}')" class="cursor-pointer  text-gray-500 bg-gray-100 border-gray-400 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
                                     @else
                                         <input value="{{ $row[$column_id] }}" id="{{ $row[$column_id] }}" type="checkbox" wire:change="changeYatSelectedCheckbox('{{$row[$column_id]}}')" class="cursor-pointer  text-gray-500 bg-gray-100 border-gray-400 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                    @endif
+                                    @endif --}}
+                                    <input 
+                                    type="checkbox" 
+                                    value="{{ $row[$column_id] }}" 
+                                    id="{{ $row[$column_id] }}" 
+                                    wire:model="yat_selected_checkbox" 
+                                    class="cursor-pointer text-gray-500 bg-gray-100 border-gray-400 rounded focus:ring-gray-500 dark:focus:ring-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                
                                 </td>
                             @endif
                             @foreach ($columns as $column)

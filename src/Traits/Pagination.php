@@ -11,6 +11,9 @@ trait Pagination
     public $perPageOptions = ["10", "15", "25", "50", "100", "Total"];
     public $with_pagination = true;
 
+    public $currentPageNumber;
+    public $forcePageNumber = false;
+
     public function updatedPerPageDisplay($value) {
         if ($value == 'Total') {
             $this->perPage = 9999999999999;
@@ -49,7 +52,27 @@ trait Pagination
         // Apply sorting before pagination
         $data = $this->sortData($data);
         
-        $currentPage = \Illuminate\Pagination\Paginator::resolveCurrentPage();
+        $currentPage = $this->currentPageNumber = \Illuminate\Pagination\Paginator::resolveCurrentPage();
+        if ($this->forcePageNumber) {
+            $currentPage = $this->forcePageNumber;
+        }
+        
+        $paginatedData = new \Illuminate\Pagination\LengthAwarePaginator(
+            $data->forPage($currentPage, $this->perPage),
+            $data->count(),
+            $this->perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+        $this->forcePageNumber = false;
+        return $paginatedData;
+    }
+
+    public function getPageData($currentPage) {
+        $data = $this->getAfterFiltersData();
+        
+        // Apply sorting before pagination
+        $data = $this->sortData($data);
         
         $paginatedData = new \Illuminate\Pagination\LengthAwarePaginator(
             $data->forPage($currentPage, $this->perPage),

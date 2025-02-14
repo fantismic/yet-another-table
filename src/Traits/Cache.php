@@ -33,6 +33,8 @@ trait Cache
     }
 
     public function updateCacheData($data) {
+        $this->all_data_count = count($data);
+        $this->emptySelection();
         CacheFacade::put($this->cachePrefix.static::class.'\\'.Auth::user()->username, $data, now()->addMinutes(60));
     }
 }

@@ -26,7 +26,7 @@ trait Sort
 
     public function sortBy($column)
     {
-        
+        $this->emptySelection();
         $sort_column = $this->columns->where('key',$column)->first()->key;
 
         if ($this->sortColumn === $sort_column) {

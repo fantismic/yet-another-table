@@ -17,7 +17,7 @@ trait RowManipulators
             return $item[$this->column_id] == $id;
         });
         if ($resetSelected) {
-            $this->selected = [];
+            $this->emptySelection();
         }
         $this->updateCacheData($data);
     }

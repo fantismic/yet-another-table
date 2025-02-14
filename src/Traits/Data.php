@@ -61,7 +61,8 @@ trait Data
 
     public function getCurrentPageData() {
         if ($this->with_pagination) {
-            $paginatedData = $this->paginateData();
+            $paginatedData = $this->getPageData($this->currentPageNumber);
+            $this->forcePageNumber = $this->currentPageNumber;
             return collect($paginatedData->items());
         } else {
             $paginatedData=$this->getAfterFiltersData();

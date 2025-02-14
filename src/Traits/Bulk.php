@@ -11,6 +11,11 @@ trait Bulk
     public $pageSelected = false;
     public $allSelected = false;
 
+    public function emptySelection() {
+        $this->yat_selected_checkbox = [];
+        $this->selectAll = false;
+    }
+
     public function hasBulk(Bool $bool) {
         $this->has_bulk = $bool;
     }
@@ -22,6 +27,7 @@ trait Bulk
     }
 
     public function selectCurrentPage($value) {
+        
         $data = $this->getCurrentPageData();
         $this->yat_selected_checkbox = $value ? $data->pluck($this->column_id)->toArray() : [];
         $this->pageSelected = true;
@@ -36,7 +42,7 @@ trait Bulk
         $this->allSelected = true;
     }
 
-    public function changeYatSelectedCheckbox($id)
+/*     public function changeYatSelectedCheckbox($id)
     {
 
         if (in_array($id, $this->yat_selected_checkbox)) {
@@ -45,7 +51,7 @@ trait Bulk
             $this->yat_selected_checkbox[] = $id;
         }
 
-    }
+    } */
 
     public function getSelectedRows() {
         return $this->yat_selected_checkbox;

@@ -20,6 +20,12 @@ trait View
     public $yat_most_right_view;
     public $yat_less_right_view;
 
+    public $yat_custom_buttons = [];
+
+    public function addButtons(array $buttons) {
+        $this->yat_custom_buttons = $buttons;
+    }
+
     public function showCounter(bool $bool) {
         $this->has_counter = $bool;
     }

@@ -36,6 +36,7 @@
             
             <div class="flex items-center space-x-2">
                 @includeWhen($yat_less_right_view, $yat_less_right_view)
+                @includeWhen($yat_custom_buttons, 'YATPackage::livewire.parts.custom-buttons')
                 @includeWhen($options, 'YATPackage::livewire.parts.options')
                 @includeWhen($show_column_toggle, 'YATPackage::livewire.parts.column-toggle')
                 @includeWhen($with_pagination, 'YATPackage::livewire.parts.select-perpage')

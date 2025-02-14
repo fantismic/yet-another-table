@@ -15,7 +15,7 @@
     $colorClass = $colorClasses[$color] ?? $colorClasses['default'];
 @endphp
 
-<button @isset($button['action']) wire:click="{{$button['action']}}" @endisset class="outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed {{ $colorClass }} rounded-md gap-x-2 text-sm px-4 py-2" type="button">
+<button @isset($button['action']) wire:click="{{$button['action']}}" @endisset class="whitespace-nowrap outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed {{ $colorClass }} rounded-md gap-x-2 text-sm px-4 py-2" type="button">
     {!! $button['label'] !!}
 </button>
 @endforeach

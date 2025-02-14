@@ -5,7 +5,8 @@
         
         <div class="flex justify-between items-center mb-4">
             <!-- Search Input && Filters -->
-            <div class="flex w-full space-x-3">
+            <div class="flex w-full space-x-2">
+                @includeWhen($yat_most_left_view, $yat_most_left_view)
                 @if($has_filters)
                 <button @click="showFilters = ! showFilters" class="outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
                     {{ucfirst(__('yat::yat.filters'))}}
@@ -30,12 +31,15 @@
                 </button>
                 @endif
                 @include('YATPackage::livewire.parts.global-search')
+                @includeWhen($yat_less_left_view, $yat_less_left_view)
             </div>
             
             <div class="flex items-center space-x-2">
+                @includeWhen($yat_less_right_view, $yat_less_right_view)
                 @includeWhen($options, 'YATPackage::livewire.parts.options')
                 @includeWhen($show_column_toggle, 'YATPackage::livewire.parts.column-toggle')
                 @includeWhen($with_pagination, 'YATPackage::livewire.parts.select-perpage')
+                @includeWhen($yat_most_right_view, $yat_most_right_view)
             </div>
         </div>
 

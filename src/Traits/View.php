@@ -14,6 +14,11 @@ trait View
     public $has_counter = true;
     
     public $modals_view;
+    
+    public $yat_most_left_view;
+    public $yat_less_left_view;
+    public $yat_most_right_view;
+    public $yat_less_right_view;
 
     public function showCounter(bool $bool) {
         $this->has_counter = $bool;
@@ -52,5 +57,21 @@ trait View
 
     public function setModalsView(string $view) {
         $this->modals_view = $view;
+    }
+
+    public function setMostLeftView(string $view) {
+        $this->yat_most_left_view = $view;
+    }
+
+    public function setLessLeftView(string $view) {
+        $this->yat_less_left_view = $view;
+    }
+
+    public function setMostRightView(string $view) {
+        $this->yat_most_right_view = $view;
+    }
+
+    public function setLessRightView(string $view) {
+        $this->yat_less_right_view = $view;
     }
 }

@@ -42,7 +42,10 @@ trait StateHandler
       if ($state) {
         $state = json_decode($state,true);
         foreach ($state as $key => $isVisible) {
-          $this->columns->where('key', $key)->first()->isVisible = $isVisible;
+          $column = $this->columns->where('key', $key)->first();
+          if ($column) {
+            $column->isVisible = $isVisible;
+          }
         }
       }
     }

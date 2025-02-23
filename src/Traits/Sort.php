@@ -52,13 +52,21 @@ trait Sort
 
             if ($this->sortDirection === 'desc') {
                 
+/*                 $data = $data->sortByDesc(function ($item) use ($sort_column) {
+                    return $item[strtolower($sort_column)];
+                },SORT_NATURAL|SORT_FLAG_CASE); */
                 $data = $data->sortByDesc(function ($item) use ($sort_column) {
-                    return $item[strtolower($sort_column)];
-                },SORT_NATURAL|SORT_FLAG_CASE);
+                    $value = $item[strtolower($sort_column)];
+                    return is_array($value) ? implode(' ', $value) : $value;
+                }, SORT_NATURAL | SORT_FLAG_CASE);
             } else {
-                $data = $data->sortBy(function ($item) use ($sort_column) {
+/*                 $data = $data->sortBy(function ($item) use ($sort_column) {
                     return $item[strtolower($sort_column)];
-                },SORT_NATURAL|SORT_FLAG_CASE);
+                },SORT_NATURAL|SORT_FLAG_CASE); */
+                $data = $data->sortBy(function ($item) use ($sort_column) {
+                    $value = $item[strtolower($sort_column)];
+                    return is_array($value) ? implode(' ', $value) : $value;
+                }, SORT_NATURAL | SORT_FLAG_CASE);
             }
         }
 

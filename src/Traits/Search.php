@@ -43,6 +43,7 @@ trait Search
         // Filter the collection
         return $data->filter(function ($item) use ($searchTerm, $searchableKeys) {
             foreach ($searchableKeys as $key) {
+                if (isset($item[$key]) && is_array($item[$key])) $item[$key] = implode(' ', $item[$key]);
                 if (isset($item[$key]) && str_contains(strtolower($item[$key]), strtolower($searchTerm))) {
                     return true; // Match found
                 }

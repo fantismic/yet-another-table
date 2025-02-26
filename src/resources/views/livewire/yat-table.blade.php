@@ -111,7 +111,7 @@
                     </tr>
                 </thead>
 
-                <tbody class="block md:table-row-group">
+                <tbody class="">
                     @if($selectAll && $all_data_count != count($rows))
                     <tr >
                         <td colspan="{{ $cols = ($has_bulk) ? count($columns) + 1 : count($columns) }}">

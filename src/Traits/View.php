@@ -20,7 +20,16 @@ trait View
     public $yat_most_right_view;
     public $yat_less_right_view;
 
+    public $yat_is_mobile = false;
+
     public $yat_custom_buttons = [];
+
+    public function gatherEnvData() {
+        $userAgent = request()->header('User-Agent');
+        if(preg_match('/(android|webos|iphone|ipad|ipod|blackberry|windows phone)/i', $userAgent)) {
+            $this->yat_is_mobile = true;
+        }
+    }
 
     public function addButtons(array $buttons) {
         $this->yat_custom_buttons = $buttons;

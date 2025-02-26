@@ -36,7 +36,7 @@ trait StateHandler
   }
 
   public function setTableState() {
-    if ($this->handle_state) {
+    if (!$this->yat_is_mobile && $this->handle_state) {
       $state = DB::table('yat_user_table_config')->where(['user_id' => Auth::user()->id, 'table' => $this->handler_prefix.static::class])->first()->configuration ?? false;
       
       if ($state) {

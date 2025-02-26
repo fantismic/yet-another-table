@@ -3,12 +3,12 @@
         @if($customHeader) {!! $customHeader !!} @endif
         @if($title) <div class="{{($titleClasses ?? 'text-3xl font-thin text-gray-600 dark:text-gray-300 mb-4')}}">{{$title}}</div> @endif
         
-        <div class="flex justify-between items-center mb-4">
+        <div class="flex flex-col sm:flex-row sm:justify-between items-center mb-4 space-y-2 sm:space-y-0">
             <!-- Search Input && Filters -->
             <div class="flex w-full space-x-2">
                 @includeWhen($yat_most_left_view, $yat_most_left_view)
                 @if($has_filters)
-                <button @click="showFilters = ! showFilters" class="outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
+                <button @click="showFilters = ! showFilters" class="hidden outline-none sm:inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
                     {{ucfirst(__('yat::yat.filters'))}}
                     <div>
                         <svg 
@@ -51,8 +51,8 @@
         <!-- Data Table -->
         <div class="{{ $override_table_classes ? $table_classes : $table_classes. 'overflow-x-auto rounded-lg'}}" >
             <table class="min-w-full border-collapse block md:table border border-gray-200 dark:border-gray-700">
-                <thead class="hidden md:table-header-group bg-gray-50 dark:bg-gray-800 {{ $sticky_header ? 'sticky -top-[0.125rem]' : '' }}">
-                    <tr class="border-b md:border-none bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 uppercase text-sm leading-normal">
+                <thead class=" bg-gray-50 dark:bg-gray-800 {{ $sticky_header ? 'sticky -top-[0.125rem]' : '' }}">
+                    <tr class="border-b md:border-none bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-sm leading-normal">
                         @if($has_counter)
                                 <td class="pl-2">#</td>
                             @endif
@@ -63,7 +63,7 @@
                         @endif
                         @foreach ($columns as $column)
                             @if (!$column->isHidden && $column->isVisible)
-                                <th wire:click="sortBy('{{ $column->key }}')" class="px-5 py-3 cursor-pointer text-xs font-medium whitespace-nowrap uppercase tracking-wider text-gray-500 dark:bg-gray-800 dark:text-gray-400 {{$column->th_classes}}" >
+                                <th wire:click="sortBy('{{ $column->key }}')" class="px-5 py-3 cursor-pointer text-xs font-medium whitespace-nowrap uppercase tracking-wider text-gray-500 dark:bg-gray-900 dark:text-gray-400 {{$column->th_classes}}" >
                                     <div class="{{ (property_exists($column, 'isBool') && $column->isBool) ? 'text-center' : 'text-left' }} {{ (property_exists($column, 'th_wrapper_classes')) ? $column->th_wrapper_classes : '' }}">
                                         <span class="">{{ $column->label }}</span>
                                         <span class="text-xs">
@@ -117,7 +117,7 @@
                     @endif
                     @forelse ($rows as $key => $row)
                         <tr
-                            class="hover:bg-gray-100 dark:hover:bg-gray-600 border-b md:border-none transition-colors even:bg-white odd:bg-gray-50 dark:even:bg-gray-700 dark:odd:bg-gray-800"
+                            class="hover:bg-gray-100 dark:hover:bg-gray-600 border-b md:border-none transition-colors even:bg-white odd:bg-gray-50 dark:even:bg-gray-800 dark:odd:bg-gray-900 "
                             @if($loading_table_spinner) 
                                 wire:loading.long.class.add="hidden d-none"
                                 wire:target="{{$trigger_spinner}}"
@@ -145,11 +145,11 @@
                             @foreach ($columns as $column)
                               @if (!$column->isHidden && $column->isVisible)
                                     @if(property_exists($column, 'hasView') && $column->hasView)
-                                    <td>
+                                    <td class="">
                                         @include($column->view)
                                     </td>
                                     @elseif(property_exists($column, 'isBool') && $column->isBool)
-                                    <td class="text-center {{$column->classes}}">
+                                    <td class="text-center {{$column->classes}} ">
                                         @if($row[$column->key] === true || strtolower($row[$column->key]) == "true" || strtolower($row[$column->key]) == "1" || strtolower($row[$column->key]) === 1)
                                             {!! $column->true_icon !!}
                                         @else
@@ -168,7 +168,7 @@
                                     <a href="{{$link_data[0]}}" class="{{$column->tag_classes ?? 'cursor-pointer'}}">{!! $link_data[1] !!}</a>
                                     </td>
                                     @else
-                                    <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}}">
+                                    <td class="px-5 py-3 whitespace-nowrap text-pretty text-sm font-normal text-gray-700 dark:text-gray-300 {{$column->classes}} ">
                                         {{ $row[$column->key] ?? '' }}
                                     </td>
                                     @endif

@@ -51,6 +51,7 @@ class YATBaseTable extends Component
     }
 
     public function mount() {
+        $this->gatherEnvData();
         $this->setColumns();
         $this->settings();
         $this->parseData();

@@ -19,6 +19,7 @@ class Column
     public $classes = '';
     public $th_classes = '';
     public $has_modified_data = false;
+    public $hide_on_mobile = false;
 
     protected static $existingKeys = [];
 

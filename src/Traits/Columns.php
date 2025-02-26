@@ -16,7 +16,13 @@ trait Columns
 
     public function setColumns() {
         $this->columns = collect($this->columns());
-
+        $this->columns = $this->columns->map(function ($column) {
+            if ($this->yat_is_mobile && $column->hide_on_mobile) {
+            $column->isVisible = false;
+            }
+            return $column;
+        });
+        
         $this->columns = $this->columns->map(function ($item) {
             return (object) get_object_vars($item);
         });
@@ -28,6 +34,11 @@ trait Columns
 
     public function setColumnID(String $column_id) {
         $this->custom_column_id = $column_id;
+    }
+
+    public function hideOnMobile(Bool $bool): self {
+        $this->hide_on_mobile = true;
+        return $this;
     }
 
     public function view($view): self {

@@ -1,6 +1,6 @@
 {
     "name": "fantismic/yet-another-table",
-    "version": "1.10.2",
+    "version": "1.10.3",
     "description": "This is yet another laravel livewire table and come as is. You can filter, you can sort, you can bulk, toggle columns, the basics. The data input is a collection/array, we cant handle models.",
     "license": "MIT",
     "keywords": [

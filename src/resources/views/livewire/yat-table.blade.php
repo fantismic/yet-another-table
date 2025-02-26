@@ -78,9 +78,9 @@
         @includeWhen($has_filters, 'YATPackage::livewire.parts.filters')
   
         <!-- Data Table -->
-        <div class="{{ $override_table_classes ? $table_classes : $table_classes. 'overflow-x-auto rounded-lg'}}" >
-            <table class="min-w-full border-collapse block md:table border border-gray-200 dark:border-gray-700">
-                <thead class=" bg-gray-50 dark:bg-gray-800 {{ $sticky_header ? 'sticky -top-[0.125rem]' : '' }}">
+        <div class="{{ $override_table_classes ? $table_classes : $table_classes. 'w-full overflow-x-auto rounded-lg'}}" >
+            <table class="min-w-full border-collapse border border-gray-200 dark:border-gray-700">
+                <thead class="min-w-full bg-gray-50 dark:bg-gray-800 {{ $sticky_header ? 'sticky -top-[0.125rem]' : '' }}">
                     <tr class="border-b md:border-none bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 uppercase text-sm leading-normal">
                         @if($has_counter)
                                 <td class="pl-2">#</td>
@@ -111,7 +111,7 @@
                     </tr>
                 </thead>
 
-                <tbody class="">
+                <tbody class="min-w-full">
                     @if($selectAll && $all_data_count != count($rows))
                     <tr >
                         <td colspan="{{ $cols = ($has_bulk) ? count($columns) + 1 : count($columns) }}">
@@ -146,7 +146,7 @@
                     @endif
                     @forelse ($rows as $key => $row)
                         <tr
-                            class="hover:bg-gray-100 dark:hover:bg-gray-600 border-b md:border-none transition-colors even:bg-white odd:bg-gray-50 dark:even:bg-gray-800 dark:odd:bg-gray-900 "
+                            class="hover:bg-gray-200 dark:hover:bg-gray-700 border-b md:border-none transition-colors even:bg-white odd:bg-gray-100 dark:even:bg-gray-800 dark:odd:bg-gray-900 "
                             @if($loading_table_spinner) 
                                 wire:loading.long.class.add="hidden d-none"
                                 wire:target="{{$trigger_spinner}}"

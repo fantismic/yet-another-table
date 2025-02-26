@@ -48,10 +48,13 @@
         @else
             <div class="flex flex-col space-y-2 mb-2">
                 @includeWhen($yat_most_left_view, $yat_most_left_view)
+                @includeWhen($yat_less_left_view, $yat_less_left_view)
                 @includeWhen($options, 'YATPackage::livewire.parts.options')
                 @includeWhen($show_column_toggle, 'YATPackage::livewire.parts.column-toggle')
                 @includeWhen($with_pagination, 'YATPackage::livewire.parts.select-perpage')
+                @includeWhen($yat_less_right_view, $yat_less_right_view)
                 @includeWhen($yat_most_right_view, $yat_most_right_view)
+                @includeWhen($yat_custom_buttons, 'YATPackage::livewire.parts.custom-buttons')
                 @include('YATPackage::livewire.parts.global-search')
             </div>
         @endif

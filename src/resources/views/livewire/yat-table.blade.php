@@ -3,15 +3,13 @@
         @if($customHeader) {!! $customHeader !!} @endif
         @if($title) <div class="{{($titleClasses ?? 'text-3xl font-thin text-gray-600 dark:text-gray-300 mb-4')}}">{{$title}}</div> @endif
         
-        <div class="flex flex-col sm:flex-row sm:justify-between items-center mb-4 space-y-2 sm:space-y-0">
-            <!-- Search Input && Filters -->
-            <div class="flex flex-col md:flex-row items-center space-x-2 space-y-2">
-                <div class="flex flex-col md:w-auto w-full">
+        @if(!$yat_is_mobile)
+            <div class="flex flex-col sm:flex-row sm:justify-between items-center mb-4 space-y-2 sm:space-y-0">
+                <!-- Search Input && Filters -->
+                <div class="flex w-full space-x-2">
                     @includeWhen($yat_most_left_view, $yat_most_left_view)
-                </div>
-                <div class="flex flex-col md:w-auto w-full">
                     @if($has_filters)
-                    <button @click="showFilters = ! showFilters" class="hidden outline-none sm:inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
+                    <button @click="showFilters = ! showFilters" class="outline-none inline-flex justify-center items-center group hover:shadow-sm focus:ring-offset-background-white dark:focus:ring-offset-background-dark transition-all ease-in-out duration-200 focus:ring-2 disabled:opacity-80 disabled:cursor-not-allowed bg-opacity-60 dark:bg-opacity-30 text-secondary-600 bg-secondary-300 dark:bg-secondary-600 dark:text-secondary-400 hover:bg-opacity-60 dark:hover:bg-opacity-30 hover:text-secondary-800 hover:bg-secondary-400 dark:hover:text-secondary-400 dark:hover:bg-secondary-500 focus:bg-opacity-60 dark:focus:bg-opacity-30 focus:ring-offset-2 focus:text-secondary-800 focus:bg-secondary-400 focus:ring-secondary-400 dark:focus:text-secondary-400 dark:focus:bg-secondary-500 dark:focus:ring-secondary-700 rounded-md gap-x-2 text-sm px-4 py-2" type="button">
                         {{ucfirst(__('yat::yat.filters'))}}
                         <div>
                             <svg 
@@ -33,46 +31,30 @@
                         </div>
                     </button>
                     @endif
-                </div>
-                @if(!$yat_is_mobile)
-                    <div class="flex flex-col md:w-auto w-full">
-                        @include('YATPackage::livewire.parts.global-search')
-                    </div>
-                @endif
-                <div class="flex flex-col md:w-auto w-full">
+                    @include('YATPackage::livewire.parts.global-search')
                     @includeWhen($yat_less_left_view, $yat_less_left_view)
                 </div>
-            </div>
-            
-            <div class="flex flex-col md:flex-row items-center space-x-2 space-y-2">
-                <!-- These should stack as columns on mobile -->
-                <div class="flex flex-col md:w-auto w-full">
+                
+                <div class="flex items-center space-x-2">
                     @includeWhen($yat_less_right_view, $yat_less_right_view)
-                </div>
-                <div class="flex flex-col md:w-auto w-ful">
                     @includeWhen($yat_custom_buttons, 'YATPackage::livewire.parts.custom-buttons')
-                </div>
-            
-                <!-- These should always remain in a row (even on mobile) -->
-                <div class="flex md:flex-row w-full md:w-auto space-x-2">
                     @includeWhen($options, 'YATPackage::livewire.parts.options')
                     @includeWhen($show_column_toggle, 'YATPackage::livewire.parts.column-toggle')
                     @includeWhen($with_pagination, 'YATPackage::livewire.parts.select-perpage')
-                </div>
-            
-                <!-- These should stack as columns on mobile -->
-                <div class="flex flex-col md:w-auto w-full">
                     @includeWhen($yat_most_right_view, $yat_most_right_view)
                 </div>
+                
             </div>
-            @if($yat_is_mobile)
-                <div class="flex flex-col md:w-auto w-full">
-                    @include('YATPackage::livewire.parts.global-search')
-                </div>
-            @endif
-            
-        </div>
-
+        @else
+            <div class="flex flex-col space-y-2 mb-2">
+                @includeWhen($yat_most_left_view, $yat_most_left_view)
+                @includeWhen($options, 'YATPackage::livewire.parts.options')
+                @includeWhen($show_column_toggle, 'YATPackage::livewire.parts.column-toggle')
+                @includeWhen($with_pagination, 'YATPackage::livewire.parts.select-perpage')
+                @includeWhen($yat_most_right_view, $yat_most_right_view)
+                @include('YATPackage::livewire.parts.global-search')
+            </div>
+        @endif
 
         <!-- Filters -->
         @includeWhen($has_filters, 'YATPackage::livewire.parts.filters')

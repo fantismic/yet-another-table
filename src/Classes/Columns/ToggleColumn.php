@@ -13,6 +13,8 @@ class ToggleColumn extends Column
     public $isToggle = true;
     public $what_is_true = 1;
     public $trigger = false;
+    public $disableToggleWhen = null;
+    public $hideToggleWhen = null;
 
 
     public function __construct(string $label, ?string $key = null) {

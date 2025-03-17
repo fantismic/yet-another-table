@@ -62,6 +62,15 @@ trait Columns
         return $this;
     }
 
+    public function disableToggleWhen(Closure $function): self {
+        $this->disableToggleWhen = $function;
+        return $this;
+    }
+    public function hideToggleWhen(Closure $function): self {
+        $this->hideToggleWhen = $function;
+        return $this;
+    }
+
     public function trigger(String $trigger): self {
         $this->trigger = $trigger;
         return $this;

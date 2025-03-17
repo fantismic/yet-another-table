@@ -92,6 +92,7 @@ trait Data
 
         $customData = $this->getCustomData();
         $linkColumns = $this->getLinkColumns();
+        $toggleColumns = $this->getToggleColumns();
 
         foreach ($data as $key => $row) {
             $parsedRow = [];
@@ -110,8 +111,14 @@ trait Data
                     $parsedRow[strtolower($column->key."_original")] = $text ?? '';
                     $column->has_modified_data = true;
                 }
-                if(property_exists($column,'isToggle') && $column->isToggle) {
+                if(isset($toggleColumns[$column->key])) {
                     $parsedValue = $parsedValue === $column->what_is_true;
+                    if (isset($toggleColumns[$column->key]['disableToggleWhen'])) {
+                        $parsedRow[strtolower($column->key."_disabled")] = call_user_func_array($toggleColumns[$column->key]['disableToggleWhen'], [$row]);
+                    }
+                    if (isset($toggleColumns[$column->key]['hideToggleWhen'])) {
+                        $parsedRow[strtolower($column->key."_hidden")] = call_user_func_array($toggleColumns[$column->key]['hideToggleWhen'], [$row]);
+                    }
                 }
                 $parsedRow[$column->key] = $parsedValue;
             }
@@ -146,6 +153,24 @@ trait Data
             unset($this->columns[$key]->href);
         }
         return $linkColumns;
+    }
+
+    public function getToggleColumns() {
+        $toggleColumns = [];
+        foreach ($this->columns as $key => $column) {
+            if (property_exists($column,'isToggle') && $column->isToggle) {
+                $toggleColumns[$column->key] = ['index'=> $column->index];
+                if (is_callable($column->disableToggleWhen)) {
+                    $toggleColumns[$column->key]['disableToggleWhen'] = $column->disableToggleWhen;
+                    unset($this->columns[$key]->disableToggleWhen);
+                }
+                if (is_callable($column->hideToggleWhen)) {
+                    $toggleColumns[$column->key]['hideToggleWhen'] = $column->hideToggleWhen;
+                    unset($this->columns[$key]->hideToggleWhen);
+                }
+            }
+        }
+        return $toggleColumns;
     }
 
 }

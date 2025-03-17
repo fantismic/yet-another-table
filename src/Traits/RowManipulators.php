@@ -48,4 +48,33 @@ trait RowManipulators
             $this->yatable_expanded_rows_content[$rowId] = $content;
         }
     }
+
+    public function updateRowOnTable($id, $newData) {
+        $data = $this->getAllData();
+        $data = $data->map(function ($item) use ($id, $newData) {
+            if ($item[$this->column_id] == $id) {
+                $item = array_merge($item, $newData);
+            }
+            return $item;
+        });
+        $this->updateCacheData($data);
+    }
+
+    public function toggleBoolean($id, $column) {
+
+        $trigger = $this->columns->where('key',$column)->first()->trigger;
+        if ($trigger) {
+            $this->$trigger($id,$column);
+        }
+
+        $data = $this->getAllData();
+        $data = $data->map(function ($item) use ($id, $column) {
+            if ($item[$this->column_id] == $id) {
+                $item[$column] = !$item[$column];
+            }
+            return $item;
+        });
+        $this->updateCacheData($data);
+
+    }
 }

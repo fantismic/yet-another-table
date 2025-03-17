@@ -22,7 +22,7 @@ trait Columns
             }
             return $column;
         });
-        
+
         $this->columns = $this->columns->map(function ($item) {
             return (object) get_object_vars($item);
         });
@@ -59,6 +59,11 @@ trait Columns
 
     public function thWrapperStyling(String $classes): self {
         $this->th_wrapper_classes = $classes;
+        return $this;
+    }
+
+    public function trigger(String $trigger): self {
+        $this->trigger = $trigger;
         return $this;
     }
 

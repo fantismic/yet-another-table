@@ -43,12 +43,12 @@ trait Data
     public function getAfterFiltersData() {
         $data = $this->filteredData();
         $data = $this->applyFilters($data);
-        if (is_null($data)) {                         
-            $this->filtered_data_count = 0;               
-        } else {                                      
-            $this->filtered_data_count = count($data);    
+        if (is_null($data)) {
+            $this->filtered_data_count = 0;
+        } else {
+            $this->filtered_data_count = count($data);
         }
-        return $data;                                             
+        return $data;
     }
 
     public function getSelectedOriginalData() {
@@ -57,6 +57,10 @@ trait Data
 
     public function getSelectedData() {
         return $this->getAllData()->whereIn('id', $this->getSelectedRows())->values();
+    }
+
+    public function getRowByID($id) {
+        return $this->getAllData()->where('id', $id)->first();
     }
 
     public function getCurrentPageData() {
@@ -106,6 +110,9 @@ trait Data
                     $parsedRow[strtolower($column->key."_original")] = $text ?? '';
                     $column->has_modified_data = true;
                 }
+                if(property_exists($column,'isToggle') && $column->isToggle) {
+                    $parsedValue = $parsedValue === $column->what_is_true;
+                }
                 $parsedRow[$column->key] = $parsedValue;
             }
             if ($this->has_bulk && $this->custom_column_id) {
@@ -113,7 +120,7 @@ trait Data
             }
             $this->userData->push($parsedRow);
         }
-        
+
         $this->userData = $this->userData->map(function ($item) {
             return collect($item)->except(['_original'])->toArray();
         });

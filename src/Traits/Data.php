@@ -173,9 +173,8 @@ trait Data
         return $toggleColumns;
     }
 
-    public function exportToClipboard($collection)
+    public function exportToClipboard($collection, bool $tabs = true)
     {
-
         if ($collection->isEmpty()) {
             $this->csvString = '';
             return;
@@ -184,11 +183,34 @@ trait Data
         $headers = array_keys($collection->first());
         $lines = [];
 
-        $lines[] = '"' . implode('","', $headers) . '"';
+        if ($tabs) {
+            // TSV: Tab-separated values
+            $lines[] = implode("\t", $headers);
 
-        foreach ($collection as $row) {
-            $escaped = array_map(fn($v) => str_replace('"', '""', $v), $row);
-            $lines[] = '"' . implode('","', $escaped) . '"';
+            foreach ($collection as $row) {
+                $escaped = array_map(function ($v) {
+                    if (is_array($v)) {
+                        $v = implode(';', $v);
+                    }
+                    return trim(preg_replace("/\s+/", ' ', $v));
+                }, $row);
+
+                $lines[] = implode("\t", $escaped);
+            }
+        } else {
+            // CSV: Comma-separated values with quotes
+            $lines[] = '"' . implode('","', $headers) . '"';
+
+            foreach ($collection as $row) {
+                $escaped = array_map(function ($v) {
+                    if (is_array($v)) {
+                        $v = implode(';', $v);
+                    }
+                    return str_replace('"', '""', $v);
+                }, $row);
+
+                $lines[] = '"' . implode('","', $escaped) . '"';
+            }
         }
 
         $this->csvString = implode("\n", $lines);

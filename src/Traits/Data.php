@@ -173,4 +173,26 @@ trait Data
         return $toggleColumns;
     }
 
+    public function exportToClipboard($collection)
+    {
+
+        if ($collection->isEmpty()) {
+            $this->csvString = '';
+            return;
+        }
+
+        $headers = array_keys($collection->first());
+        $lines = [];
+
+        $lines[] = '"' . implode('","', $headers) . '"';
+
+        foreach ($collection as $row) {
+            $escaped = array_map(fn($v) => str_replace('"', '""', $v), $row);
+            $lines[] = '"' . implode('","', $escaped) . '"';
+        }
+
+        $this->csvString = implode("\n", $lines);
+
+        $this->dispatch('copy-yatable-to-clipboard', csv: $this->csvString);
+    }
 }

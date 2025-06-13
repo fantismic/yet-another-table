@@ -252,4 +252,8 @@
             </script>
         @endif
     @endforeach
+
+    <div x-data
+        x-on:copy-yatable-to-clipboard.window="navigator.clipboard.writeText($event.detail.csv)">
+    </div>
   </section>

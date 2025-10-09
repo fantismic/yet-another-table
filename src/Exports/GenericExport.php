@@ -31,7 +31,7 @@ class GenericExport implements FromCollection, WithHeadings, WithStyles, WithCol
         if ($this->strip_tags) {
             return $this->data->map(function ($item) {
                 // Strip HTML tags from each value
-                return collect($item)->map(fn($value) => strip_tags($value));
+                return collect($item)->map(fn($value) => strip_tags((is_array($value) ? implode(', ', $value) : $value)));
             });
         } else {
             return $this->data;
@@ -95,7 +95,7 @@ class GenericExport implements FromCollection, WithHeadings, WithStyles, WithCol
                 // Check each row to find the maximum length of the data in this column
                 foreach ($this->data as $item) {
                     if ($this->strip_tags) {
-                        $valueLength = strlen((string)strip_tags($item[$heading]) ?? '');
+                        $valueLength = strlen((string)strip_tags(is_array($item[$heading]) ? implode(', ', $item[$heading]) : $item[$heading]) ?? '');
                     } else {
                         $valueLength = strlen((string)$item[$heading] ?? '');
                     }

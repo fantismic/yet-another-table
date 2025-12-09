@@ -84,7 +84,13 @@ trait Filters
         
         return $data->filter(function ($item) {
             foreach ($this->filters as $filter) {
-                if (in_array($filter->type,array("string","select"))) {
+                if ($filter->type == "string") {
+                    $suffix = array_key_exists($filter->key."_original",$item) ? '_original' : '';
+                    if ($filter->input && !str_contains(strtolower($item[$filter->key.$suffix]), strtolower($filter->input))) {
+                        return false;
+                    }
+                }
+                if ($filter->type == "select") {
                     if ($filter->input && !str_contains(strtolower($item[$filter->key]), strtolower($filter->input))) {
                         return false;
                     }

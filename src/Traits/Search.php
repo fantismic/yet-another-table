@@ -14,7 +14,6 @@ trait Search
 
     public function updatingSearch()
     {
-        $this->emptySelection();
         $this->resetPage();
     }
 
